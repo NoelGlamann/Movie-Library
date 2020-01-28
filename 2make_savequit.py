@@ -71,7 +71,6 @@ def display():
         #print("    Description:", info[7])
         print("----------------------")        
     
-    print("DISPLAY")
     reset()
     
 def search():
@@ -154,16 +153,23 @@ def remove():
     
 def save(exit):
     
-    '''this function will save the database without making the
-    user exit and reopen the program'''
+    '''this '''
+    dictionary = movies
+    save = open("movie_lib.pickle", "wb")
+    p.dump(dictionary, save)
+    save.close() 
     
-    print("Save")
     
     if exit:
-        quit()
+        return
     else:
+        reopen = open("movie_lib.pickle", "rb")
+        dictionary = p.load(reopen)  
+        reopen.close()
+        print("Save Complete!")
+        
         reset()
-    
+        
     
     
 def reset():
@@ -176,13 +182,7 @@ def reset():
     print()
     print()
     menu()
-    
-def quit():
-    
-    '''this function will quit the program'''
-    
-    print("Quit")
-    return
+
     
     
 
