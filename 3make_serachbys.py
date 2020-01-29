@@ -120,7 +120,9 @@ def search():
         print("*NOT A VALID CHOICE*")
         search()
         
-        
+#search
+
+#by
 
 def sb_title():
     
@@ -310,6 +312,9 @@ def sb_tb():
 
 
 def sb_director():
+    
+    '''This function will search for a movie with director'''
+    
     print()
     director = input("Name? ")
     key_list = movies.keys()
@@ -354,7 +359,8 @@ def sb_director():
         reset()     
    
 def sb_year():
-    
+    ''' this function allows user to input a release year
+    and all movies released in that year will be displayed'''
     print()
     year = input("What year was the movie released? ")
     
@@ -401,6 +407,10 @@ def sb_year():
         
       
 def sb_rating():
+    '''this function allows user to input a viewer rating
+    such as pg or pg-13 etc and will display all movies with
+    that rating'''
+    
     print()
     rate = input("Viewer Rating? ")
     usr_rate = rate.upper()
@@ -448,14 +458,15 @@ def sb_rating():
     else:
         reset()    
     
-    
-
-def sb_star():
-    '''this function allows user to seach library by title'''
+def sb_stars():
+    '''this function allows user to seach by star rating
+    the user can input their smallest number of stars / 10
+    and the program will display all with that number or more. '''
     
     print()
-    stars = input("Minimum Number of stars")
+    star_rate = input("Minimum number of stars (out of 10) ?")
     key_list = movies.keys()
+    usr_stars = float(star_rate)
     
     print("Here is what we found: ")
     print()
@@ -467,7 +478,9 @@ def sb_star():
         info = movies[key]
         actors = info[3]
         
-        if title in info[1]:
+        dic_stars = float(info[6])
+        
+        if usr_stars <= dic_stars:
             count += 1
             print()
             print(info[1])
@@ -487,7 +500,7 @@ def sb_star():
             print()
             
     if count == 0:
-        print("Sorry! We cannot find a title to match your search.")
+        print("Sorry! We have no movies rated so high. ")
         
     answer = input("Would you like to try again? (y/N): ")
     
@@ -496,6 +509,13 @@ def sb_star():
     else:
         reset()     
 
+#done 
+
+#with 
+
+#search 
+
+#by
 
 def add():
 
