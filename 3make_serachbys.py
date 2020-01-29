@@ -88,6 +88,10 @@ def search():
     A. Title
     B. Genre
     C. Top-Billed Actor/Actress
+    D. Director
+    E. Release Year
+    F. Rating (G, PG, etc)
+    G. Star - Rating (5/10, etc
     
     R. Return
     ''')
@@ -100,8 +104,18 @@ def search():
         sb_genre()
     elif search_by == 'C' or search_by == 'c':
         sb_tb()
+    elif search_by == 'D' or search_by == 'd':
+        sb_director()        
+    elif search_by == 'E' or search_by == 'e':
+        sb_year()
+    elif search_by == 'F' or search_by == 'f':
+        sb_rating()
+    elif search_by == 'G' or search_by == 'g':
+        sb_stars()     
+        
     elif search_by == 'R' or search_by == 'r':
         reset()
+        
     else:
         print("*NOT A VALID CHOICE*")
         search()
@@ -111,14 +125,102 @@ def search():
 def sb_title():
     
     '''this function allows user to seach library by title'''
-    print("search by title")
-    reset()
+    
+    print()
+    title = input("Keyword (Begin With Capital Letter) ? ")
+    key_list = movies.keys()
+    
+    print("Here is what we found: ")
+    print()
+    
+    count = 0
+    
+    for key in key_list:
+        
+        info = movies[key]
+        actors = info[3]
+        
+        if title in info[1]:
+            count += 1
+            print()
+            print(info[1])
+            print()
+            print("    Genre:", info[0])
+            print("    Director(s):", info[2])
+            print("    Top 3 Billed Actors:", actors[0] + 
+                  ",\n                        ", actors[1] + 
+                  ",\n                        ", "and", actors[2])
+            print("    Release Year:", info[4])
+            print("    Rating:", info[5])
+            print("    IMDb Star Rate:", info[6])
+            #print("    Description:", info[7])
+            print("----------------------")   
+        
+         
+            print()
+            
+    if count == 0:
+        print("Sorry! We cannot find a title to match your search.")
+        
+    answer = input("Would you like to try again? (y/N): ")
+    
+    if answer == 'YES' or answer == 'yes' or answer == 'Y' or answer == 'y':
+        search()
+    else:
+        reset() 
+        
+        
+    
     
 def sb_genre():
     
     '''this function allows user to seach library by genre'''
-    print("search by genre")
-    reset()
+    
+    print()
+    genre = input("Please type genre: ")
+    key_list = movies.keys()
+    usr_genre = genre.upper()
+  
+    
+    print("Here is what we found: ")
+    print()    
+    
+    for key in key_list:
+        
+        count = 0 
+        
+        info = movies[key]
+        actors = info[3]
+        
+        dic_genre = info[0].upper()  
+        
+        if usr_genre == dic_genre:
+            count += 1
+            
+            print()
+            print(info[1])
+            print()
+            print("    Genre:", info[0])
+            print("    Director(s):", info[2])
+            print("    Top 3 Billed Actors:", actors[0] + 
+                  ",\n                        ", actors[1] + 
+                  ",\n                        ", "and", actors[2])
+            print("    Release Year:", info[4])
+            print("    Rating:", info[5])
+            print("    IMDb Star Rate:", info[6])
+            #print("    Description:", info[7])
+            print("----------------------") 
+        
+        if count == 0:
+            print("Sorry! Our movie genre's do not match your search. ")
+            
+        answer = input("Would you like to try again? (y/N): ")
+        
+        if answer == 'YES' or answer == 'yes' or answer == 'Y' or answer == 'y':
+            search()
+        else:
+            reset()         
+
     
 def sb_tb():
     
