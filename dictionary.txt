@@ -1,8 +1,4 @@
-#!/usr/bin/python3
-#NoelGlamann
-#28 January 2020
 
-'''The dictionary I started with and will only be using to look at as practice. 
 
 
 0. genre
@@ -64,4 +60,3 @@ movies = {1:['Horror',
             'Animated Disney movie following Anna and her adventure
             to save her sister and her town after Elsa accidentally 
             uses her powers to curse it.']}
-'''

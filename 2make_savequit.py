@@ -60,6 +60,7 @@ def display():
         info = movies[key]
         actors = info[3]
         
+        print()
         print(info[1])
         print()
         print("    Genre:", info[0])
@@ -153,7 +154,8 @@ def remove():
     
 def save(exit):
     
-    '''this '''
+    '''this fuction will serve as both a save and an exit function
+    depending on the user's menu selection. '''
     dictionary = movies
     save = open("movie_lib.pickle", "wb")
     p.dump(dictionary, save)
@@ -167,6 +169,7 @@ def save(exit):
         dictionary = p.load(reopen)  
         reopen.close()
         print("Save Complete!")
+        #movies = dictionary 
         
         reset()
         
