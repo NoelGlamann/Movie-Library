@@ -183,11 +183,12 @@ def sb_genre():
   
     
     print("Here is what we found: ")
-    print()    
+    print()
+    
+    count = 0 
+    
     
     for key in key_list:
-        
-        count = 0 
         
         info = movies[key]
         actors = info[3]
@@ -226,10 +227,137 @@ def sb_tb():
     
     '''this function allows user to seach library by 
     top-billed cast'''
-    print("search by top-billed")
-    reset()
+    
+    print('''To search by actors, please type their name with a capital letter.
+             First and/or Last names are available.''')
+    actor = input("Name? ")
+    
+    key_list = movies.keys()
+    
+    print() 
+    print("Here is what we found: ")
+    print()    
+     
+    for key in key_list:
+        
+        count = 0 
+        
+        info = movies[key]
+        actors = info[3]
+        first = actors[0]
+        second = actors[1]
+        third = actors[2]
+        
+        if actor in first:
+            count += 1
+            
+            print()
+            print(info[1])
+            print()
+            print("    Genre:", info[0])
+            print("    Director(s):", info[2])
+            print("    Top 3 Billed Actors:", actors[0] + 
+                  ",\n                        ", actors[1] + 
+                  ",\n                        ", "and", actors[2])
+            print("    Release Year:", info[4])
+            print("    Rating:", info[5])
+            print("    IMDb Star Rate:", info[6])
+            #print("    Description:", info[7])
+            print("----------------------") 
+        if actor in second:
+            count += 1
+            
+            print()
+            print(info[1])
+            print()
+            print("    Genre:", info[0])
+            print("    Director(s):", info[2])
+            print("    Top 3 Billed Actors:", actors[0] + 
+                  ",\n                        ", actors[1] + 
+                  ",\n                        ", "and", actors[2])
+            print("    Release Year:", info[4])
+            print("    Rating:", info[5])
+            print("    IMDb Star Rate:", info[6])
+            #print("    Description:", info[7])
+            print("----------------------")
+            
+        if actor in third:
+            count += 1
+            
+            print()
+            print(info[1])
+            print()
+            print("    Genre:", info[0])
+            print("    Director(s):", info[2])
+            print("    Top 3 Billed Actors:", actors[0] + 
+                  ",\n                        ", actors[1] + 
+                  ",\n                        ", "and", actors[2])
+            print("    Release Year:", info[4])
+            print("    Rating:", info[5])
+            print("    IMDb Star Rate:", info[6])
+            #print("    Description:", info[7])
+            print("----------------------")        
+        
+        if count == 0:
+            print("Sorry! That actor was not in the top billed in any of our movies.")
+            
+        answer = input("Would you like to try again? (y/N): ")
+        
+        if answer == 'YES' or answer == 'yes' or answer == 'Y' or answer == 'y':
+            search()
+        else:
+            reset()             
 
+
+def sb_director():
+    print()
+    director = input("Name? ")
+    key_list = movies.keys()
+    
+    print("Here is what we found: ")
+    print()
+    
+    count = 0
+    
+    for key in key_list:
+        
+        info = movies[key]
+        actors = info[3]
+        
+        if director in info[2]:
+            count += 1
+            print()
+            print(info[1])
+            print()
+            print("    Genre:", info[0])
+            print("    Director(s):", info[2])
+            print("    Top 3 Billed Actors:", actors[0] + 
+                  ",\n                        ", actors[1] + 
+                  ",\n                        ", "and", actors[2])
+            print("    Release Year:", info[4])
+            print("    Rating:", info[5])
+            print("    IMDb Star Rate:", info[6])
+            #print("    Description:", info[7])
+            print("----------------------")   
+        
+         
+            print()
+            
+    if count == 0:
+        print("Sorry! We cannot find a movie directed by your search.")
+        
+    answer = input("Would you like to try again? (y/N): ")
+    
+    if answer == 'YES' or answer == 'yes' or answer == 'Y' or answer == 'y':
+        search()
+    else:
+        reset()     
    
+def sb_year():
+    
+def sb_rating():
+def sb_star():
+
 def add():
     
     '''this function allows user to add new movie'''
@@ -298,7 +426,7 @@ def reset():
 movies = {}
 in_file = open("movie_lib.pickle", "rb")
 movies = p.load(in_file)  
-in_file.close()
+in_file.close()title
 '''print(movies)'''
 
 menu()
@@ -308,6 +436,8 @@ print("Goodbye --------")
 
 '''
 TODO
+
+Search by top billed does not work!!
 
 I would like to add a way for the user to select how to sort the display
 ex. display sorted by genre, alphebetical, etc
