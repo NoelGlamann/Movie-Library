@@ -144,22 +144,8 @@ def sb_title():
         
         if title in info[1]:
             count += 1
-            print()
-            print(info[1])
-            print()
-            print("    Genre:", info[0])
-            print("    Director(s):", info[2])
-            print("    Top 3 Billed Actors:", actors[0] + 
-                  ",\n                        ", actors[1] + 
-                  ",\n                        ", "and", actors[2])
-            print("    Release Year:", info[4])
-            print("    Rating:", info[5])
-            print("    IMDb Star Rate:", info[6])
-            #print("    Description:", info[7])
-            print("----------------------")   
-        
-         
-            print()
+            
+            printrecord(info, actors)
             
     if count == 0:
         print("Sorry! We cannot find a title to match your search.")
@@ -200,29 +186,17 @@ def sb_genre():
         if usr_genre == dic_genre:
             count += 1
             
-            print()
-            print(info[1])
-            print()
-            print("    Genre:", info[0])
-            print("    Director(s):", info[2])
-            print("    Top 3 Billed Actors:", actors[0] + 
-                  ",\n                        ", actors[1] + 
-                  ",\n                        ", "and", actors[2])
-            print("    Release Year:", info[4])
-            print("    Rating:", info[5])
-            print("    IMDb Star Rate:", info[6])
-            #print("    Description:", info[7])
-            print("----------------------") 
+            printrecord(info, actors)
         
-        if count == 0:
-            print("Sorry! Our movie genre's do not match your search. ")
-            
-        answer = input("Would you like to try again? (y/N): ")
+    if count == 0:
+        print("Sorry! Our movie genre's do not match your search. ")
         
-        if answer == 'YES' or answer == 'yes' or answer == 'Y' or answer == 'y':
-            search()
-        else:
-            reset()         
+    answer = input("Would you like to try again? (y/N): ")
+    
+    if answer == 'YES' or answer == 'yes' or answer == 'Y' or answer == 'y':
+        search()
+    else:
+        reset()         
 
     
 def sb_tb():
@@ -253,62 +227,27 @@ def sb_tb():
         if actor in first:
             count += 1
             
-            print()
-            print(info[1])
-            print()
-            print("    Genre:", info[0])
-            print("    Director(s):", info[2])
-            print("    Top 3 Billed Actors:", actors[0] + 
-                  ",\n                        ", actors[1] + 
-                  ",\n                        ", "and", actors[2])
-            print("    Release Year:", info[4])
-            print("    Rating:", info[5])
-            print("    IMDb Star Rate:", info[6])
-            #print("    Description:", info[7])
-            print("----------------------") 
+            printrecord(info, actors)
+            
         if actor in second:
             count += 1
             
-            print()
-            print(info[1])
-            print()
-            print("    Genre:", info[0])
-            print("    Director(s):", info[2])
-            print("    Top 3 Billed Actors:", actors[0] + 
-                  ",\n                        ", actors[1] + 
-                  ",\n                        ", "and", actors[2])
-            print("    Release Year:", info[4])
-            print("    Rating:", info[5])
-            print("    IMDb Star Rate:", info[6])
-            #print("    Description:", info[7])
-            print("----------------------")
+            printrecord(info, actors)
             
         if actor in third:
             count += 1
             
-            print()
-            print(info[1])
-            print()
-            print("    Genre:", info[0])
-            print("    Director(s):", info[2])
-            print("    Top 3 Billed Actors:", actors[0] + 
-                  ",\n                        ", actors[1] + 
-                  ",\n                        ", "and", actors[2])
-            print("    Release Year:", info[4])
-            print("    Rating:", info[5])
-            print("    IMDb Star Rate:", info[6])
-            #print("    Description:", info[7])
-            print("----------------------")        
+            printrecord(info, actors)       
         
-        if count == 0:
-            print("Sorry! That actor was not in the top billed in any of our movies.")
-            
-        answer = input("Would you like to try again? (y/N): ")
+    if count == 0:
+        print("Sorry! That actor was not in the top billed in any of our movies.")
         
-        if answer == 'YES' or answer == 'yes' or answer == 'Y' or answer == 'y':
-            search()
-        else:
-            reset()             
+    answer = input("Would you like to try again? (y/N): ")
+    
+    if answer == 'YES' or answer == 'yes' or answer == 'Y' or answer == 'y':
+        search()
+    else:
+        reset()             
 
 
 def sb_director():
@@ -331,22 +270,8 @@ def sb_director():
         
         if director in info[2]:
             count += 1
-            print()
-            print(info[1])
-            print()
-            print("    Genre:", info[0])
-            print("    Director(s):", info[2])
-            print("    Top 3 Billed Actors:", actors[0] + 
-                  ",\n                        ", actors[1] + 
-                  ",\n                        ", "and", actors[2])
-            print("    Release Year:", info[4])
-            print("    Rating:", info[5])
-            print("    IMDb Star Rate:", info[6])
-            #print("    Description:", info[7])
-            print("----------------------")   
-        
-         
-            print()
+            
+            printrecord(info, actors)
             
     if count == 0:
         print("Sorry! We cannot find a movie directed by your search.")
@@ -378,22 +303,8 @@ def sb_year():
         
         if year in info[4]:
             count += 1
-            print()
-            print(info[1])
-            print()
-            print("    Genre:", info[0])
-            print("    Director(s):", info[2])
-            print("    Top 3 Billed Actors:", actors[0] + 
-                  ",\n                        ", actors[1] + 
-                  ",\n                        ", "and", actors[2])
-            print("    Release Year:", info[4])
-            print("    Rating:", info[5])
-            print("    IMDb Star Rate:", info[6])
-            #print("    Description:", info[7])
-            print("----------------------")   
-        
-         
-            print()
+            
+            printrecord(info, actors)
             
     if count == 0:
         print("Sorry! We cannot find a movie released that year. ")
@@ -431,22 +342,8 @@ def sb_rating():
         
         if usr_rate == dic_rate:
             count += 1
-            print()
-            print(info[1])
-            print()
-            print("    Genre:", info[0])
-            print("    Director(s):", info[2])
-            print("    Top 3 Billed Actors:", actors[0] + 
-                  ",\n                        ", actors[1] + 
-                  ",\n                        ", "and", actors[2])
-            print("    Release Year:", info[4])
-            print("    Rating:", info[5])
-            print("    IMDb Star Rate:", info[6])
-            #print("    Description:", info[7])
-            print("----------------------")   
-        
-         
-            print()
+            
+            printrecord(info, actors)
             
     if count == 0:
         print("Sorry! We cannot find a movie released that year. ")
@@ -459,12 +356,13 @@ def sb_rating():
         reset()    
     
 def sb_stars():
+    
     '''this function allows user to seach by star rating
     the user can input their smallest number of stars / 10
     and the program will display all with that number or more. '''
     
     print()
-    star_rate = input("Minimum number of stars (out of 10) ?")
+    star_rate = input("Minimum number of stars (out of 10) ? ")
     key_list = movies.keys()
     usr_stars = float(star_rate)
     
@@ -482,22 +380,9 @@ def sb_stars():
         
         if usr_stars <= dic_stars:
             count += 1
-            print()
-            print(info[1])
-            print()
-            print("    Genre:", info[0])
-            print("    Director(s):", info[2])
-            print("    Top 3 Billed Actors:", actors[0] + 
-                  ",\n                        ", actors[1] + 
-                  ",\n                        ", "and", actors[2])
-            print("    Release Year:", info[4])
-            print("    Rating:", info[5])
-            print("    IMDb Star Rate:", info[6])
-            #print("    Description:", info[7])
-            print("----------------------")   
-        
-         
-            print()
+            
+            printrecord(info, actors)
+            
             
     if count == 0:
         print("Sorry! We have no movies rated so high. ")
@@ -508,7 +393,24 @@ def sb_stars():
         search()
     else:
         reset()     
+        
+def printrecord(info, actors):
+    print()
+    print(info[1])
+    print()
+    print("    Genre:", info[0])
+    print("    Director(s):", info[2])
+    print("    Top 3 Billed Actors:", actors[0] + 
+          ",\n                        ", actors[1] + 
+          ",\n                        ", "and", actors[2])
+    print("    Release Year:", info[4])
+    print("    Rating:", info[5])
+    print("    IMDb Star Rate:", info[6])
+    #print("    Description:", info[7])
+    print("----------------------")   
 
+ 
+    print()    
 #done 
 
 #with 
