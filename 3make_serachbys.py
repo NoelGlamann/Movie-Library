@@ -410,7 +410,9 @@ def printrecord(info, actors):
     print("----------------------")   
 
  
-    print()    
+    print() 
+    
+    return
 #done 
 
 #with 
