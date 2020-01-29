@@ -355,10 +355,150 @@ def sb_director():
    
 def sb_year():
     
+    print()
+    year = input("What year was the movie released? ")
+    
+    key_list = movies.keys()
+    
+    print("Here is what we found: ")
+    print()
+    
+    count = 0
+    
+    for key in key_list:
+        
+        info = movies[key]
+        actors = info[3]
+        
+        if year in info[4]:
+            count += 1
+            print()
+            print(info[1])
+            print()
+            print("    Genre:", info[0])
+            print("    Director(s):", info[2])
+            print("    Top 3 Billed Actors:", actors[0] + 
+                  ",\n                        ", actors[1] + 
+                  ",\n                        ", "and", actors[2])
+            print("    Release Year:", info[4])
+            print("    Rating:", info[5])
+            print("    IMDb Star Rate:", info[6])
+            #print("    Description:", info[7])
+            print("----------------------")   
+        
+         
+            print()
+            
+    if count == 0:
+        print("Sorry! We cannot find a movie released that year. ")
+        
+    answer = input("Would you like to try again? (y/N): ")
+    
+    if answer == 'YES' or answer == 'yes' or answer == 'Y' or answer == 'y':
+        search()
+    else:
+        reset()
+        
+      
 def sb_rating():
+    print()
+    rate = input("Viewer Rating? ")
+    usr_rate = rate.upper()
+    
+    key_list = movies.keys()
+    
+    print("Here is what we found: ")
+    print()
+    
+    count = 0
+    
+    for key in key_list:
+        
+        info = movies[key]
+        actors = info[3]
+        
+        dic_rate = info[5].upper() 
+        
+        if usr_rate == dic_rate:
+            count += 1
+            print()
+            print(info[1])
+            print()
+            print("    Genre:", info[0])
+            print("    Director(s):", info[2])
+            print("    Top 3 Billed Actors:", actors[0] + 
+                  ",\n                        ", actors[1] + 
+                  ",\n                        ", "and", actors[2])
+            print("    Release Year:", info[4])
+            print("    Rating:", info[5])
+            print("    IMDb Star Rate:", info[6])
+            #print("    Description:", info[7])
+            print("----------------------")   
+        
+         
+            print()
+            
+    if count == 0:
+        print("Sorry! We cannot find a movie released that year. ")
+        
+    answer = input("Would you like to try again? (y/N): ")
+    
+    if answer == 'YES' or answer == 'yes' or answer == 'Y' or answer == 'y':
+        search()
+    else:
+        reset()    
+    
+    
+
 def sb_star():
+    '''this function allows user to seach library by title'''
+    
+    print()
+    stars = input("Minimum Number of stars")
+    key_list = movies.keys()
+    
+    print("Here is what we found: ")
+    print()
+    
+    count = 0
+    
+    for key in key_list:
+        
+        info = movies[key]
+        actors = info[3]
+        
+        if title in info[1]:
+            count += 1
+            print()
+            print(info[1])
+            print()
+            print("    Genre:", info[0])
+            print("    Director(s):", info[2])
+            print("    Top 3 Billed Actors:", actors[0] + 
+                  ",\n                        ", actors[1] + 
+                  ",\n                        ", "and", actors[2])
+            print("    Release Year:", info[4])
+            print("    Rating:", info[5])
+            print("    IMDb Star Rate:", info[6])
+            #print("    Description:", info[7])
+            print("----------------------")   
+        
+         
+            print()
+            
+    if count == 0:
+        print("Sorry! We cannot find a title to match your search.")
+        
+    answer = input("Would you like to try again? (y/N): ")
+    
+    if answer == 'YES' or answer == 'yes' or answer == 'Y' or answer == 'y':
+        search()
+    else:
+        reset()     
+
 
 def add():
+
     
     '''this function allows user to add new movie'''
     print("Add New")
@@ -426,7 +566,7 @@ def reset():
 movies = {}
 in_file = open("movie_lib.pickle", "rb")
 movies = p.load(in_file)  
-in_file.close()title
+in_file.close()
 '''print(movies)'''
 
 menu()
