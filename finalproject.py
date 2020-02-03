@@ -14,6 +14,10 @@ import pickle as p
 #---FUNCTIONS----------------------------------------
 
 def menu():
+    '''This function displays a menu and allows
+    the user to make a selection. Leading them to a string 
+    of other functions per their request.'''
+    
     print('''
               MOVIE DATABASE
                 MAIN MENU
@@ -35,6 +39,9 @@ def menu():
      
     
 def selection(choice):
+    '''this function takes the users choice from menu() and 
+    directs them to their requested function.'''
+    
     if choice == '1':
         display()
     elif choice == '2':
@@ -85,6 +92,10 @@ def search():
     
     '''this function will allow the user to search
     the database with their own key'''
+    
+    '''this acts as another menu. the user will determine the 
+    key for their search and be directed to that function.'''
+    
     
     print('''
      SEARCH BY:
@@ -400,6 +411,9 @@ def sb_stars():
         reset()     
         
 def printrecord(info, actors):
+    '''this function is just used to print the contents
+    of a movie. i didn't want to type it any more'''
+    
     print()
     print(info[1])
     print()
@@ -418,18 +432,14 @@ def printrecord(info, actors):
     print() 
     
     return
-#done 
-
-#with 
 
 #search 
 
 #by
 
 def add():
-
-    
     '''this function allows user to add new movie'''
+    
     print()
     print("Add New Movie")
     print()
