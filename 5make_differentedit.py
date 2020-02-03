@@ -29,8 +29,11 @@ def menu():
     Q. Quit ( also saves )
     ''')
     choice = input("Select the option by number (1, 2, 3) or letter (Q): ")
+    print()
+    print()    
     selection(choice)    
-
+     
+    
 def selection(choice):
     if choice == '1':
         display()
@@ -72,7 +75,7 @@ def display():
               ",\n                        ", "and", actors[2])
         print("    Release Year:", info[4])
         print("    Rating:", info[5])
-        print("    IMDb Star Rate:", info[6])
+        print("    IMDb Star Rate:", info[6] + "/10")
         #print("    Description:", info[7])
         print("----------------------")        
     
@@ -242,14 +245,14 @@ def sb_tb():
             printrecord(info, actors)       
         
     if count == 0:
-        print("Sorry! That actor was not in the top billed in any of our movies.")
+        print("Sorry! That actor was not top-billed in any of our movies.")
         
-    answer = input("Would you like to try again? (y/N): ")
+        answer = input("Would you like to try again? (y/N): ")
     
-    if answer == 'YES' or answer == 'yes' or answer == 'Y' or answer == 'y':
-        search()
-    else:
-        reset()             
+        if answer == 'YES' or answer == 'yes' or answer == 'Y' or answer == 'y':
+            search()
+        else:
+            reset()             
 
 
 def sb_director():
@@ -427,23 +430,137 @@ def add():
 
     
     '''this function allows user to add new movie'''
+    print()
     print("Add New Movie")
-    num = len(movies.keys())
-    print(num)
+    print()
     
-    update()
+    title = input("Title of Movie: ")
+    
+    key_list = movies.keys()
+    for key in key_list:
+        
+        info = movies[key]
+        
+        if title == info[1]:
+            print("This movie already exists in our library.")
+            reset()
+        
+    num = len(movies.keys())
+    this_key = num + 1
+    
+    genre = input("Genre: ")
+    director = input("Director: ")
+    actor1 = input("Top-Billed Actor: ")
+    actor2 = input("Second-Billed Actor: ")
+    actor3 = input("Third Billed Actor: ")
+    year = input("Release Year: ")
+    rating = input("Viewer Rating: ")
+    star = input("Star Rating (out of 10): ")
+    
+    print()
+    print("------------------------------------------")
+    print(title)
+    print(genre)
+    print(director)
+    print(actor1 + ", " + actor2 + ", and " + actor3)
+    print(year)
+    print(rating)
+    print(star)
+    print("------------------------------------------")
+    print()
+    
+    answer = input("Is this information correct (Y/n)? ")
+    
+    if answer == "N" or answer == "NO" or answer == "n" or answer == "no":
+        ans = input("Would you like to try again (Y/n)? ")
+        
+        if ans == "N" or ans == "NO" or ans == "n" or ans == "no": 
+            reset()
+        else:
+            add()
+    else:
+        movies[this_key] = [genre, title, director, [actor1, actor2, actor3], year, rating, star] 
+        save(False)
     
 def edit():
     
     '''this function allows user to edit existing movie'''
-    print("Edit")
-    update()
+    print("Editing an Existing Function")
+    print()
+    print("Here is your library: ")
+    print()
     
-def update():
+    count = 1
+    while count <= len(movies):
+        contains = movies[count]
+        movie_title = contains[1]
+        num = str(count)
+        
+        print(num + ". " + movie_title)
+        count += 1 
+      
+    print()
+    number = input("Which movie would you like to edit (1, 2, 3)? ")
+    this_key = int(number)
+    print()
     
-    '''this function exists to complete edit() and add()'''
-    print("Update")
-    reset()
+    info = movies[this_key]
+    actors = info[3]
+    
+    print("Current Title:", info[1])
+    title = input("New Title: ")
+    print()
+    print("Current Genre:", info[0])
+    genre = input("New Genre: ")
+    print()
+    print("Current Director(s):", info[2])
+    director = input("New Director: ")
+    print()
+    print("Current Top-Billed Actor:", actors[0])
+    actor1 = input("New Actor: ")
+    print()
+    print("Current Second-Billed Actor:", actors[1])
+    actor2 = input("New Actor: ")
+    print()
+    print("Current Third-Billed Actor:", actors[2])
+    actor3 = input("New Actor: ")
+    print()    
+    print("Current Release Year:", info[4])
+    year = input("New Year: ")
+    print()  
+    print("Current Viewer Rating:", info[5])
+    rating = input("New Rating: ")
+    print()  
+    print("Current Star Rating:", info[6] + "/10")
+    star = input("New Rating (out of 10): ")
+    
+    print()  
+    print()  
+    print()
+    print("------------------------------------------")
+    print(title)
+    print(genre)
+    print(director)
+    print(actor1 + ", " + actor2 + ", and " + actor3)
+    print(year)
+    print(rating)
+    print(star)
+    print("------------------------------------------")
+    print()
+    
+    answer = input("Is this information correct (Y/n)? ")
+    
+    if answer in ("N", "NO", "n", "no"):
+        ans = input("Would you like to try again (Y/n)? ")
+        
+        if ans in ("N", "NO", "n", "no"):
+            reset()
+        else:
+            add()
+    else:
+        movies[this_key] = [genre, title, director, [actor1, actor2, actor3], year, rating, star] 
+        save(False)       
+    
     
 def remove():
     

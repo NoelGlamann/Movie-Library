@@ -5,6 +5,8 @@
 ''' this is going to be used to develop my own program 
 following in the footsteps of our example with big_brother.py.'''
 
+'''last udpated: Jan 28, 2020'''
+
 #---IMPORT-------------------------------------------
 
 import pickle as p

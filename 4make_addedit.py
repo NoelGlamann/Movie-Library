@@ -29,8 +29,11 @@ def menu():
     Q. Quit ( also saves )
     ''')
     choice = input("Select the option by number (1, 2, 3) or letter (Q): ")
+    print()
+    print()    
     selection(choice)    
-
+     
+    
 def selection(choice):
     if choice == '1':
         display()
@@ -72,7 +75,7 @@ def display():
               ",\n                        ", "and", actors[2])
         print("    Release Year:", info[4])
         print("    Rating:", info[5])
-        print("    IMDb Star Rate:", info[6])
+        print("    IMDb Star Rate:", info[6] + "/10")
         #print("    Description:", info[7])
         print("----------------------")        
     
@@ -427,22 +430,145 @@ def add():
 
     
     '''this function allows user to add new movie'''
+    print()
     print("Add New Movie")
+    print()
+    
+    title = input("Title of Movie: ")
+    
+    key_list = movies.keys()
+    for key in key_list:
+        
+        info = movies[key]
+        
+        if title == info[1]:
+            print("This movie already exists in our library.")
+            reset()
+        
     num = len(movies.keys())
-    print(num)
+    this_key = num + 1
+    
+    genre = input("Genre: ")
+    director = input("Director: ")
+    actor1 = input("Top-Billed Actor: ")
+    actor2 = input("Second-Billed Actor: ")
+    actor3 = input("Third Billed Actor: ")
+    year = input("Release Year: ")
+    rating = input("Viewer Rating: ")
+    star = input("Star Rating (out of 10): ")
+    
+    print()
+    print("------------------------------------------")
+    print(title)
+    print(genre)
+    print(director)
+    print(actor1 + ", " + actor2 + ", and " + actor3)
+    print(year)
+    print(rating)
+    print(star)
+    print("------------------------------------------")
+    print()
+    
+    answer = input("Is this information correct (Y/n)? ")
+    
+    if answer == "N" or answer == "NO" or answer == "n" or answer == "no":
+        ans = input("Would you like to try again (Y/n)? ")
+        
+        if ans == "N" or ans == "NO" or ans == "n" or ans == "no": 
+            reset()
+        else:
+            add()
+    else:
+        movies[this_key] = [genre, title, director, [actor1, actor2, actor3], year, rating, star] 
+        reset()
+    
     
     update()
     
 def edit():
     
     '''this function allows user to edit existing movie'''
-    print("Edit")
-    update()
+    print("Editing an Existing Function")
+    print()
+    print("Here is your library: ")
+    print()
+    
+    count = 1
+    while count <= len(movies):
+        contains = movies[count]
+        movie_title = contains[1]
+        num = str(count)
+        
+        print(num + ". " + movie_title)
+        count += 1 
+      
+    print()
+    print("Which movie would you like to edit?")
+    
+    title = input("Please type name exactly as it appears: ")
+    
+    key_list = movies.keys()
+    this_key = 0
+    
+    for key in key_list:
+        
+        info = movies[key]
+        name = info[1]
+        actors = info[3] 
+        
+        if title == name:
+            this_key = key
+    
+    if this_key == 0:
+        print("That movie was not found in our dictionary.")
+        reset()
+    else:
+        
+        print("Updating Information... ")
+        
+        genre = input("Genre: ")
+        director = input("Director: ")
+        actor1 = input("Top-Billed Actor: ")
+        actor2 = input("Second-Billed Actor: ")
+        actor3 = input("Third Billed Actor: ")
+        year = input("Release Year: ")
+        rating = input("Viewer Rating: ")
+        star = input("Star Rating (out of 10): ")
+    
+        print()
+        print("------------------------------------------")
+        print(title)
+        print(genre)
+        print(director)
+        print(actor1 + ", " + actor2 + ", and " + actor3)
+        print(year)
+        print(rating)
+        print(star)
+        print("------------------------------------------")
+        print()
+    
+    answer = input("Is this information correct (Y/n)? ")
+    
+    if answer in ("N", "NO", "n", "no"):
+        ans = input("Would you like to try again (Y/n)? ")
+        
+        if ans in ("N", "NO", "n", "no"):
+            reset()
+        else:
+            add()
+    else:
+        movies[this_key] = [genre, title, director, [actor1, actor2, actor3], year, rating, star] 
+        reset()        
+    
+    
+    
+    
     
 def update():
     
     '''this function exists to complete edit() and add()'''
     print("Update")
+    
     reset()
     
 def remove():
