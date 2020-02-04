@@ -1,11 +1,11 @@
 #!/usr/bin/python3
 #Noel Glamann
-#22 January 2020
+#3 February 2020
 
 ''' this is going to be used to develop my own program 
 following in the footsteps of our example with big_brother.py.'''
 
-'''last updated: Jan 30, 2020'''
+'''last updated: Feb 4, 2020 to fix remove'''
 
 #---IMPORT-------------------------------------------
 
@@ -36,7 +36,7 @@ def menu():
     
 def selection(choice):
     if choice == '1':
-        display()
+        display(False)
     elif choice == '2':
         search()
     elif choice == '3':
@@ -53,7 +53,7 @@ def selection(choice):
         print("*NOT A VALID CHOICE*")
         menu()
         
-def display():
+def display(with_keys):
     
     '''this function will display all items existing 
     in the library. 
@@ -61,23 +61,37 @@ def display():
     
     key_list = movies.keys()
     
-    for key in key_list:
-        info = movies[key]
-        actors = info[3]
+    if not with_keys:
+    
+        for key in key_list:
+            info = movies[key]
+            actors = info[3]
+            
+            print()
+            print(info[1])
+            print()
+            print("    Genre:", info[0])
+            print("    Director(s):", info[2])
+            print("    Top 3 Billed Actors:", actors[0] + 
+                  ",\n                        ", actors[1] + 
+                  ",\n                        ", "and", actors[2])
+            print("    Release Year:", info[4])
+            print("    Rating:", info[5])
+            print("    IMDb Star Rate:", info[6] + "/10")
+            #print("    Description:", info[7])
+            print("----------------------")        
+    
+    if with_keys:
         
+        print("Here is your current Library: ")
         print()
-        print(info[1])
-        print()
-        print("    Genre:", info[0])
-        print("    Director(s):", info[2])
-        print("    Top 3 Billed Actors:", actors[0] + 
-              ",\n                        ", actors[1] + 
-              ",\n                        ", "and", actors[2])
-        print("    Release Year:", info[4])
-        print("    Rating:", info[5])
-        print("    IMDb Star Rate:", info[6] + "/10")
-        #print("    Description:", info[7])
-        print("----------------------")        
+        
+        for key in key_list:
+            
+            info = movies[key]
+            
+            print(key, info[1])
+        return
     
     reset()
     
@@ -567,30 +581,32 @@ def remove():
     '''this function will remove an existing movie from 
     the database'''
     
-    title = input("Title of movie to delete: ")
-    found = False
-    key_list = movies.keys()
+    display(True)
+    print()
+    selected_key = input("Which movie would you like to delete (1, 2, etc)? ")
+    selected_key = int(selected_key)
     
-    for key in key_list:
-        
-        info = movies[key]
-        actors = info[3]
-        
-        if title in info[1]:
-            found = True
-            this_key = key
-            
-    print(key)
+    info = movies[selected_key]
+    print()
+    print(info[1])
+    print()
     
-            
-    if found:
-        entry = movies.pop(key)
-        print(title, "was", "removed.")
-              
+    ans = input("Is this the correct movie (Y/n)? ")
+    
+    if ans in ('NO', 'no', 'n', 'N'):
+        reset()
+    
     else:
-        print("That movie was not found in our library.")
-         
-    save(False)
+        for key in range(1, len(movies)+1):
+            if key >= selected_key and key != len(movies):
+                movies[key] = movies[key+1]
+            if key == len(movies):
+                movies.pop(key)
+        print("Gone")
+        save(False)
+        
+
+    
     
 def save(exit):
     

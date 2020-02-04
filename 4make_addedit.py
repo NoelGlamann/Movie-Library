@@ -1,11 +1,11 @@
 #!/usr/bin/python3
 #Noel Glamann
-#22 January 2020
+#28 January 2020
 
 ''' this is going to be used to develop my own program 
 following in the footsteps of our example with big_brother.py.'''
 
-'''last updated: Jan 30, 2020'''
+'''last updated: Jan 28, 2020'''
 
 #---IMPORT-------------------------------------------
 
