@@ -11,6 +11,8 @@ the name
           7fixed_remove.py
           last updated: 4 Feb 2020
           
+This file last updated: 11 Feb 2020
+          
 '''
 
 #IMPORTS-------------------------------------------------------------------
@@ -24,32 +26,42 @@ from tkinter import scrolledtext
 #CLASSES-------------------------------------------------------------------
 class MainMenu(tk.Frame):
     def __init__(self):
+        '''This function creates a main menu for the database,
+        inlcuding positioning and jobs of widgets'''
+        
         tk.Frame.__init__(self)
+        
+        
+        self.columnconfigure(0, weight = 100)
+        self.columnconfigure(1, weight = 100)
+        self.columnconfigure(2, weight = 100)          
         
         lbl_title = tk.Label(text = "Movie Database",
                              font = ("Times", "35"))
-        lbl_title.grid(row = 0, column = 0,
+        lbl_title.grid(row = 0, column = 1, 
                        sticky = "news")
         
         btn_add = tk.Button(text = "Add New Movie",
-                            font = ("Arial", "16"))
-        btn_add.grid(row = 1, column = 0)
+                            font = ("Courier", "16"))
+        btn_add.grid(row = 1, column = 1)
         
         btn_edit = tk.Button(text = "Edit Existing Movie",
-                             font = ("Arial", "16"))
-        btn_edit.grid(row = 2, column = 0)
+                             font = ("Courier", "16"))
+        btn_edit.grid(row = 2, column = 1)
         
         btn_search = tk.Button(text = "Search Library",
-                               font = ("Arial", "16"))
-        btn_search.grid(row = 3, column = 0)
+                               font = ("Courier", "16"))
+        btn_search.grid(row = 3, column = 1)
         
         btn_remove = tk.Button(text = "Remove Existing",
-                              font = ("Arial", "16"))
-        btn_remove.grid(row = 4, column = 0)      
+                              font = ("Courier", "16"))
+        btn_remove.grid(row = 4, column = 1)      
         
         btn_save = tk.Button(text = "Save Changes",
-                             font = ("Arial", "16"))
-        btn_save.grid(row = 5, column = 0)        
+                             font = ("Courier", "16"))
+        btn_save.grid(row = 5, column = 1) 
+        
+               
         
         
 #FUNCTIONS-----------------------------------------------------------------
@@ -64,11 +76,11 @@ if __name__ == "__main__":
     
     '''creating a main screen'''
     root = tk.Tk()
-    root.geometry("500x500")
+    root.geometry("300x300")
     root.title("Movie Library NG")
     
     main_menu = MainMenu()
     main_menu.grid(row = 0, column = 0,
-                   sticky = "news")
+                   sticky = "news")  
     
     root.mainloop()           
