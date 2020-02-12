@@ -18,7 +18,6 @@ This file last updated: 11 Feb 2020
 #IMPORTS-------------------------------------------------------------------
 import pickle as p
 import tkinter as tk
-from tkinter import *
 from tkinter.scrolledtext import ScrolledText
 
 
@@ -95,45 +94,45 @@ class Search(tk.Frame):
                           font = ("Times", 20))
         self.lbl_sb.grid(row = 1, 
                     column = 0, 
-                    columnspan = 2,
+                    #columnspan = 2,
                    sticky = "news")
         
         '''MAKE DROP DOWN'''
         
-        self.tkvar = StringVar(self)
+        self.tkvar = tk.StringVar(self)
         
-        choices = {'Title', 'Genre', 'Director', 
+        choices = ['Title', 'Genre', 'Director', 
                         'Top-Billed Actors', 'Release Year', 
-                        'Viewer Rating', 'Star Rating'}
+                        'Viewer Rating', 'Star Rating']
         
         self.tkvar.set('Title')
         
-        self.drop_down = OptionMenu(self, self.tkvar, *choices)
+        self.drop_down = tk.OptionMenu(self, self.tkvar, *choices)
         
         self.drop_down.grid(row = 2, 
                             column = 0, 
-                            columnspan = 2,
+                            #columnspan = 2,
                             sticky = "news")
         
         self.check_boxes = ChkBoxes(self)
         self.check_boxes.grid(row = 1,
                               rowspan = 5,
                               column = 2,
-                              columnspan = 2,
-                   sticky = "news")
+                              #columnspan = 2,
+                              sticky = "news")
         
         self.lbl_sf = tk.Label(self, text = "Search For: ",
                                font = ("Times", 20))
         self.lbl_sf.grid(row = 4, 
                     column = 0,
-                    columnspan = 2,
+                    #columnspan = 2,
                    sticky = "news")
         
         self.ent_sf = tk.Entry(self)
         
         self.ent_sf.grid(row = 5,
                     column = 0,
-                    columnspan = 2,
+                    #columnspan = 2,
                    sticky = "news")
         
         self.scrtxt = ScrolledText(self, height = 10,
@@ -151,17 +150,16 @@ class Search(tk.Frame):
         self.btn_reset = tk.Button(self, text = "Reset",
                                    font = ("Times", 20))
         self.btn_reset.grid(row = 7,
-                            column = 2)
+                            column = 1)
         
         self.btn_submit = tk.Button(self, text = "Submit", 
                                     font = ("Times", 20))
         self.btn_submit.grid(row = 7, 
-                             column = 3)
+                             column = 2)
         
-        self.grid_columnconfigure(0, weight = 2)
-        self.grid_columnconfigure(1, weight = 1)
-        self.grid_columnconfigure(2, weight = 2)
-        self.grid_columnconfigure(3, weight = 2)
+        self.grid_columnconfigure(0, weight = 1)
+        #self.grid_columnconfigure(1, weight = 1)
+        self.grid_columnconfigure(2, weight = 1)
         """self.grid_rowconfigure(0, weight = 1)
         self.grid_rowconfigure(1, weight = 1)
         self.grid_rowconfigure(2, weight = 1)
