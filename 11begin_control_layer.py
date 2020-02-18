@@ -31,13 +31,7 @@ class Screen(tk.Frame):
     
     def __init__(self):
         tk.Frame.__init__(self)
-        
-        screens = [MainMenu(), Search(), AddEdit(), Remove()]
-        
-        
-        
-        
-
+    
 class MainMenu(Screen):
     def __init__(self):
         '''This function creates a main menu for the database,
@@ -333,11 +327,7 @@ class AddEdit(Screen):
         self.btn_submit.grid(row = 11,
                              column = 3) 
         
-        '''self.grid_columnconfigure(0, weight = 1)
-        self.grid_columnconfigure(1, weight = 1)
-        self.grid_columnconfigure(2, weight = 1)
-        self.grid_columnconfigure(3, weight = 1)
-        '''
+       
 class CheckEdit(Screen):
     def __init__(self):
         
@@ -420,7 +410,8 @@ class Remove(Screen):
                                   font = ("Times", "25"))
         
         self.btn_conf.grid(row = 3,
-                           column = 1)
+                           column = 1,
+                           sticky = "w")
         
 class CheckRemove(Screen):
     def __init__(self):
@@ -552,12 +543,30 @@ if __name__ == "__main__":
     
     '''creating a main screen'''
     root = tk.Tk()
-    root.geometry('1000x600')
+    #root.geometry('1000x600')
     root.title("Movie Library NG")
-    
-    main_menu = MainMenu()
-    main_menu.grid(row = 0, column = 0, sticky = "news") 
     root.grid_columnconfigure(0, weight = 1)
+    root.grid_rowconfigure(0, weight = 1)
+    
+    
+    screens = []
+    
+    screens.append(MainMenu())   #MainMenu = screens[0]    
+    screens.append(Search())     #Search = screens[1]
+    screens.append(AddEdit())    #AddEdit = screens[2]
+    screens.append(Remove())     #Remove = screens[3]
 
+    screens[0].grid(row = 0, column = 0, sticky = "news")
+        
+    screens[1].grid(row = 0, column = 0, sticky = "news")
+    
+    screens[2].grid(row = 0, column = 0, sticky = "news")
+    
+    screens[3].grid(row = 0, column = 0, sticky = "news")
+    
+    
+    
+    screens[2].tkraise()
+    
     
     root.mainloop()           
