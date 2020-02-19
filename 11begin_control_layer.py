@@ -31,6 +31,10 @@ class Screen(tk.Frame):
     
     def __init__(self):
         tk.Frame.__init__(self)
+        
+    def switch_frame(self):
+        screens[current].tkraise()
+    
     
 class MainMenu(Screen):
     def __init__(self):
@@ -534,6 +538,8 @@ class ChkBoxes(tk.Frame):
         
 #FUNCTIONS-----------------------------------------------------------------
 
+
+
 #MAIN-----------------------------------------------------------------------
 if __name__ == "__main__":
     
@@ -548,7 +554,6 @@ if __name__ == "__main__":
     root.grid_columnconfigure(0, weight = 1)
     root.grid_rowconfigure(0, weight = 1)
     
-    
     screens = []
     
     screens.append(MainMenu())   #MainMenu = screens[0]    
@@ -556,17 +561,11 @@ if __name__ == "__main__":
     screens.append(AddEdit())    #AddEdit = screens[2]
     screens.append(Remove())     #Remove = screens[3]
 
-    screens[0].grid(row = 0, column = 0, sticky = "news")
-        
+    screens[0].grid(row = 0, column = 0, sticky = "news")  
     screens[1].grid(row = 0, column = 0, sticky = "news")
-    
     screens[2].grid(row = 0, column = 0, sticky = "news")
-    
     screens[3].grid(row = 0, column = 0, sticky = "news")
     
-    
-    
-    screens[2].tkraise()
-    
+    screens[3].tkraise()
     
     root.mainloop()           
