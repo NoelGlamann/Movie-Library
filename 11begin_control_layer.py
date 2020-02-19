@@ -32,8 +32,8 @@ class Screen(tk.Frame):
     def __init__(self):
         tk.Frame.__init__(self)
         
-    def switch_frame(self):
-        screens[current].tkraise()
+    def switch_frame():
+        screens[Screen.current].tkraise()
     
     
 class MainMenu(Screen):
@@ -390,32 +390,35 @@ class Remove(Screen):
         self.lbl_removal1 = tk.Label(self, text = "These titles are ",
                             font = ("Times", "35"))
         self.lbl_removal1.grid(row = 0,
-                      column = 0, 
+                      column = 1, 
                       columnspan = 2)
         self.lbl_removal2 = tk.Label(self, text = "marked for removal!",
                                  font = ("Times", "35"))
         self.lbl_removal2.grid(row = 1, 
-                           column = 0, 
+                           column = 1, 
                            columnspan = 2)
         
         self.scr_removelist = ScrolledText(self, height = 8,
                                    width = 40)
         self.scr_removelist.grid(row = 2, 
-                         column = 0,
+                         column = 1,
                          columnspan = 2)  
         
         self.btn_cancel = tk.Button(self, text = "Cancel",
                                     font = ("Times", "25"))
         
         self.btn_cancel.grid(row = 3, 
-                             column = 0)
+                             column = 1)
         
         self.btn_conf = tk.Button(self, text = "Confirm",
                                   font = ("Times", "25"))
         
         self.btn_conf.grid(row = 3,
-                           column = 1,
+                           column = 2,
                            sticky = "w")
+        
+        self.grid_columnconfigure(0, weight = 1)
+        self.grid_columnconfigure(3, weight = 1)
         
 class CheckRemove(Screen):
     def __init__(self):
@@ -532,13 +535,6 @@ class ChkBoxes(tk.Frame):
         
         self.grid_columnconfigure(0, weight = 1)
         self.grid_columnconfigure(1, weight = 1)
-               
-        
-
-        
-#FUNCTIONS-----------------------------------------------------------------
-
-
 
 #MAIN-----------------------------------------------------------------------
 if __name__ == "__main__":
@@ -566,6 +562,7 @@ if __name__ == "__main__":
     screens[2].grid(row = 0, column = 0, sticky = "news")
     screens[3].grid(row = 0, column = 0, sticky = "news")
     
-    screens[3].tkraise()
+    Screen.current = 3
+    Screen.switch_frame()
     
     root.mainloop()           
