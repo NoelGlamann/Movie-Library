@@ -51,7 +51,8 @@ class MainMenu(Screen):
                        sticky = "news")
         
         self.btn_add = tk.Button(self, text = "Add New Movie",
-                            font = ("Courier", "16"))
+                                 command = self.addedit,
+                                 font = ("Courier", "16"))
         self.btn_add.grid(row = 2, 
                      column = 1, 
                        sticky = "news")
@@ -63,13 +64,15 @@ class MainMenu(Screen):
                        sticky = "news")
         
         self.btn_search = tk.Button(self, text = "Search Library",
-                               font = ("Courier", "16"))
+                                    command = self.search,
+                                    font = ("Courier", "16"))
         self.btn_search.grid(row = 4, 
                         column = 1, 
                        sticky = "news")
         
         self.btn_remove = tk.Button(self, text = "Remove Existing",
-                              font = ("Courier", "16"))
+                                    command = self.remove,
+                                    font = ("Courier", "16"))
         self.btn_remove.grid(row = 5, 
                         column = 1, 
                        sticky = "news")      
@@ -85,6 +88,15 @@ class MainMenu(Screen):
         self.grid_rowconfigure(1, weight = 2)
         self.grid_rowconfigure(7, weight = 2)
         
+    def search(self):
+        Screen.current = 1
+        Screen.switch_frame()
+    def addedit(self):
+        Screen.current = 2
+        Screen.switch_frame()
+    def remove(self):
+        Screen.current = 3
+        Screen.switch_frame()
         
         
 class Search(Screen):
@@ -562,7 +574,7 @@ if __name__ == "__main__":
     screens[2].grid(row = 0, column = 0, sticky = "news")
     screens[3].grid(row = 0, column = 0, sticky = "news")
     
-    Screen.current = 3
+    Screen.current = 0
     Screen.switch_frame()
     
     root.mainloop()           
