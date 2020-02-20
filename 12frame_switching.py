@@ -77,7 +77,6 @@ class MainMenu(Screen):
                        sticky = "news")      
         
         self.btn_save = tk.Button(self, text = "Save Changes",
-                                  command = self.go_save,
                                   font = ("Courier", "16"))
         self.btn_save.grid(row = 6, 
                       column = 1, 
@@ -88,24 +87,27 @@ class MainMenu(Screen):
         self.grid_rowconfigure(1, weight = 2)
         self.grid_rowconfigure(7, weight = 2)
         
+    '''Frames'''
     def search(self):
         Screen.current = 1
         Screen.switch_frame()
     def addedit(self):
         Screen.current = 2
         Screen.switch_frame()
+        
+    '''Pop Ups'''   
     def checkedit(self):
         popup = tk.Tk()
-        Screen.current = 4
-        
-        
+        popup.title("Edit Select")
+        frm_checkedit = CheckEdit(popup)
+        frm_checkedit.grid(row = 0, column = 0)
     def checkremove(self):
         popup = tk.Tk()
-        Screen.current = 5
+        popup.title("Remove Select")
+        frm_checkremove = CheckRemove(popup)
+        frm_checkremove.grid(row = 0, column = 0)
+    
         
-    def go_save(self):
-        popup = tk.Tk()
-        Screen.current = 6
         
         
         
@@ -359,10 +361,10 @@ class AddEdit(Screen):
                              column = 3) 
         
        
-class CheckEdit(Screen):
-    def __init__(self):
+class CheckEdit(tk.Frame):
+    def __init__(self, parent):
         
-        Screen.__init__(self)        
+        tk.Frame.__init__(self, master = parent)        
         
     
         
@@ -395,6 +397,8 @@ class CheckEdit(Screen):
                                   column = 0, 
                                   columnspan = 2,
                                   sticky = "news")  
+        '''DD DONE'''
+        
         
         self.btn_cancel = tk.Button(self, text = "Cancel",
                                     font = ("Times", 20))
@@ -403,18 +407,23 @@ class CheckEdit(Screen):
                              column = 0)
         
         self.btn_continue = tk.Button(self, text = "Continue",
+                                      command = self.addedit,
                                       font = ("Times", 20))
         
         self.btn_continue.grid(row = 3,
-                               column = 1)      
+                               column = 1)    
+        
+    def addedit(self):
+        Screen.current = 2
+        Screen.switch_frame()        
     
         
         
-class Remove(Screen):
+class Remove(tk.Frame):
     
-    def __init__(self):
+    def __init__(self, parent):
         
-        Screen.__init__(self)        
+        tk.Frame.__init__(self, master = parent)        
         
         self.lbl_removal1 = tk.Label(self, text = "These titles are ",
                             font = ("Times", "35"))
@@ -449,11 +458,11 @@ class Remove(Screen):
         self.grid_columnconfigure(0, weight = 1)
         self.grid_columnconfigure(3, weight = 1)
         
-class CheckRemove(Screen):
+class CheckRemove(tk.Frame):
     
-    def __init__(self):
+    def __init__(self, parent):
         
-        Screen.__init__(self)        
+        tk.Frame.__init__(self, master = parent)        
         
         self.lbl_remove1 = tk.Label(self, text = "Which movie would you",
                                     font = ("Times", 30))
@@ -492,10 +501,17 @@ class CheckRemove(Screen):
                              column = 0)
         
         self.btn_continue = tk.Button(self, text = "Continue",
+                                      command = self.removed,
                                       font = ("Times", 20))
         
         self.btn_continue.grid(row = 3,
-                               column = 1)        
+                               column = 1)    
+        
+    def removed(self):
+        popup = tk.Tk()
+        popup.title("Are you Sure?")
+        frm_removed = Remove(popup)
+        frm_removed.grid(row = 0, column = 0)        
         
 class Save(Screen):
     def __init__(self):
@@ -585,19 +601,10 @@ if __name__ == "__main__":
     screens.append(MainMenu())   #MainMenu = screens[0]    
     screens.append(Search())     #Search = screens[1]
     screens.append(AddEdit())    #AddEdit = screens[2]
-    '''
-    screens.append(Remove())     #Remove = screens[3]
-    screens.append(CheckEdit())  #CheckEdit = screens[4]
-    screens.append(CheckRemove())#CheckRemove = screens[5] 
-    screens.append(Save())       #Save = screens[6]
-    '''
+    
     screens[0].grid(row = 0, column = 0, sticky = "news")  
     screens[1].grid(row = 0, column = 0, sticky = "news")
     screens[2].grid(row = 0, column = 0, sticky = "news")
-    #screens[3].grid(row = 0, column = 0, sticky = "news")
-    #screens[4].grid(row = 0, column = 0, sticky = "news")
-    #screens[5].grid(row = 0, column = 0, sticky = "news")
-    #screens[6].grid(row = 0, column = 0, sticky = "news")    
     
     Screen.current = 0
     Screen.switch_frame()
