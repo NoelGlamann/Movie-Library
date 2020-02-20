@@ -136,13 +136,13 @@ class Search(Screen):
         
         self.tkvar = tk.StringVar(self)
         
-        choices = ['Title', 'Genre', 'Director', 
+        self.choices = ['Title', 'Genre', 'Director', 
                         'Top-Billed Actors', 'Release Year', 
                         'Viewer Rating', 'Star Rating']
         
         self.tkvar.set('Title')
         
-        self.dbx_searchby = tk.OptionMenu(self, self.tkvar, *choices)
+        self.dbx_searchby = tk.OptionMenu(self, self.tkvar, *self.choices)
         
         self.dbx_searchby.grid(row = 2, 
                             column = 0, 
@@ -401,7 +401,7 @@ class CheckEdit(tk.Frame):
         
         
         self.btn_cancel = tk.Button(self, text = "Cancel",
-                                    command = self.end,
+                                    command = parent.destroy,
                                     font = ("Times", 20))
         
         self.btn_cancel.grid(row = 3,
@@ -415,8 +415,7 @@ class CheckEdit(tk.Frame):
                                column = 1)    
         
         
-    #def close_window(self):
-        
+    
         
     def addedit(self):
         Screen.current = 2
