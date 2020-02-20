@@ -366,7 +366,7 @@ class CheckEdit(tk.Frame):
         
         tk.Frame.__init__(self, master = parent)        
         
-    
+        self.parent = parent 
         
         self.lbl_remove1 = tk.Label(self, text = "Which movie would ",
                                     font = ("Times", 30))
@@ -384,7 +384,6 @@ class CheckEdit(tk.Frame):
                               sticky ="news")
         
         '''DROP DOWN'''
-        
         self.tkvar = tk.StringVar(self)
         
         choices = ['movie1', 'movie2', 'movie3']
@@ -401,26 +400,24 @@ class CheckEdit(tk.Frame):
         
         
         self.btn_cancel = tk.Button(self, text = "Cancel",
-                                    command = parent.destroy,
+                                    command = self.parent.destroy,
                                     font = ("Times", 20))
         
         self.btn_cancel.grid(row = 3,
                              column = 0)
         
         self.btn_continue = tk.Button(self, text = "Continue",
-                                      command = self.addedit,
+                                      command = self.continue_to_edit,
                                       font = ("Times", 20))
         
         self.btn_continue.grid(row = 3,
                                column = 1)    
         
         
-    
-        
-    def addedit(self):
+    def continue_to_edit(self):
         Screen.current = 2
-        Screen.switch_frame()        
-    
+        Screen.switch_frame()
+        self.parent.destroy()
         
         
 class Remove(tk.Frame):
