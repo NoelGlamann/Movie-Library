@@ -401,7 +401,7 @@ class CheckEdit(tk.Frame):
         
         
         self.btn_cancel = tk.Button(self, text = "Cancel",
-                                    command = CheckEdit.quit,
+                                    command = self.end,
                                     font = ("Times", 20))
         
         self.btn_cancel.grid(row = 3,
@@ -413,6 +413,10 @@ class CheckEdit(tk.Frame):
         
         self.btn_continue.grid(row = 3,
                                column = 1)    
+        
+        
+    #def close_window(self):
+        
         
     def addedit(self):
         Screen.current = 2
