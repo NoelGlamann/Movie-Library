@@ -401,6 +401,7 @@ class CheckEdit(tk.Frame):
         
         
         self.btn_cancel = tk.Button(self, text = "Cancel",
+                                    command = CheckEdit.quit,
                                     font = ("Times", 20))
         
         self.btn_cancel.grid(row = 3,
@@ -443,12 +444,14 @@ class Remove(tk.Frame):
                          columnspan = 2)  
         
         self.btn_cancel = tk.Button(self, text = "Cancel",
+                                    command = Screen.main,
                                     font = ("Times", "25"))
         
         self.btn_cancel.grid(row = 3, 
                              column = 1)
         
         self.btn_conf = tk.Button(self, text = "Confirm",
+                                  command = Screen.main,
                                   font = ("Times", "25"))
         
         self.btn_conf.grid(row = 3,
