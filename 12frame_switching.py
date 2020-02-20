@@ -1,15 +1,10 @@
 #!usr/bin/python3
 #Noel Glamann
-#18 February 2020
+#20 February 2020
 
 '''
 This program will develop the Graphical User 
 Interface (GUI) for the Movie Library function. 
-
-Most updated version of movie database is under
-the name 
-          7fixed_remove.py
-          last updated: 4 Feb 2020
           
 This file last updated: 20 Feb 2020
           
