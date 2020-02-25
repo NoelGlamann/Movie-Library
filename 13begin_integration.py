@@ -203,6 +203,8 @@ class AddEdit(Screen):
         
         Screen.__init__(self)        
         
+        self.selected_key = 0
+        
         self.lbl_title = tk.Label(self, text = "Title: ",
                                   font = ("Courier", 12))
         
@@ -367,6 +369,9 @@ class AddEdit(Screen):
         self.grid_rowconfigure(10, weight = 1)
         self.grid_rowconfigure(11, weight = 1)
         
+    def update(self):
+        entry = movies[self.selected_key]
+        
        
 class CheckEdit(tk.Frame):
     def __init__(self, parent):
@@ -430,6 +435,9 @@ class CheckEdit(tk.Frame):
         else:
             Screen.current = 2
             Screen.switch_frame()
+            
+            
+            
             self.parent.destroy()            
         
         
