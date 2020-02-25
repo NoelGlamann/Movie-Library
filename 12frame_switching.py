@@ -106,12 +106,6 @@ class MainMenu(Screen):
         popup.title("Remove Select")
         frm_checkremove = CheckRemove(popup)
         frm_checkremove.grid(row = 0, column = 0)
-    
-        
-        
-        
-        
-        
         
 class Search(Screen):
     '''This Frame will be the Print All/Search By page'''
@@ -360,6 +354,19 @@ class AddEdit(Screen):
         self.btn_submit.grid(row = 11,
                              column = 3) 
         
+        self.grid_rowconfigure(0, weight = 1)
+        self.grid_rowconfigure(1, weight = 1)
+        self.grid_rowconfigure(2, weight = 1)
+        self.grid_rowconfigure(3, weight = 1)
+        self.grid_rowconfigure(4, weight = 1)
+        self.grid_rowconfigure(5, weight = 1)
+        self.grid_rowconfigure(6, weight = 1)
+        self.grid_rowconfigure(7, weight = 1)
+        self.grid_rowconfigure(8, weight = 1)
+        self.grid_rowconfigure(9, weight = 1)
+        self.grid_rowconfigure(10, weight = 1)
+        self.grid_rowconfigure(11, weight = 1)
+        
        
 class CheckEdit(tk.Frame):
     def __init__(self, parent):
@@ -385,12 +392,15 @@ class CheckEdit(tk.Frame):
         
         '''DROP DOWN'''
         self.tkvar = tk.StringVar(self)
+        movie_choices = []
         
-        choices = ['movie1', 'movie2', 'movie3']
+        for key in range(1, (len(movies)+1)):
+            contents = movies[key]
+            movie_choices.append(contents[1])
         
-        self.tkvar.set('movie1')
+        self.tkvar.set('Select Movie')
         
-        self.dbx_movieremove = tk.OptionMenu(self, self.tkvar, *choices)
+        self.dbx_movieremove = tk.OptionMenu(self, self.tkvar, *movie_choices)
         
         self.dbx_movieremove.grid(row = 2, 
                                   column = 0, 
@@ -420,11 +430,11 @@ class CheckEdit(tk.Frame):
         self.parent.destroy()
         
         
-class Remove(tk.Frame):
+class Remove(Screen):
     
-    def __init__(self, parent):
+    def __init__(self):
         
-        tk.Frame.__init__(self, master = parent)        
+        tk.Frame.__init__(self)        
         
         self.lbl_removal1 = tk.Label(self, text = "These titles are ",
                             font = ("Times", "35"))
@@ -451,7 +461,6 @@ class Remove(tk.Frame):
                              column = 1)
         
         self.btn_conf = tk.Button(self, text = "Confirm",
-                                  command = Screen.main,
                                   font = ("Times", "25"))
         
         self.btn_conf.grid(row = 3,
@@ -460,6 +469,8 @@ class Remove(tk.Frame):
         
         self.grid_columnconfigure(0, weight = 1)
         self.grid_columnconfigure(3, weight = 1)
+        
+        
         
 class CheckRemove(tk.Frame):
     
@@ -498,6 +509,7 @@ class CheckRemove(tk.Frame):
                                   sticky = "news")  
         
         self.btn_cancel = tk.Button(self, text = "Cancel",
+                                    command = self.parent.destroy,
                                     font = ("Times", 20))
         
         self.btn_cancel.grid(row = 3,
@@ -510,11 +522,10 @@ class CheckRemove(tk.Frame):
         self.btn_continue.grid(row = 3,
                                column = 1)    
         
-    def removed(self):
-        popup = tk.Tk()
-        popup.title("Are you Sure?")
-        frm_removed = Remove(popup)
-        frm_removed.grid(row = 0, column = 0)        
+    def continue_to_remove(self):
+        Screen.current = 3
+        Screen.switch_frame()
+        self.parent.destroy()        
         
 class Save(Screen):
     def __init__(self):
@@ -601,13 +612,15 @@ if __name__ == "__main__":
     
     screens = []
     
-    screens.append(MainMenu())   #MainMenu = screens[0]    
-    screens.append(Search())     #Search = screens[1]
-    screens.append(AddEdit())    #AddEdit = screens[2]
+    screens.append(MainMenu())   #MainMenu  =  screens[0]    
+    screens.append(Search())     #Search    =  screens[1]
+    screens.append(AddEdit())    #AddEdit   =  screens[2]
+    screens.append(Remove())     #Remove    =  screens[3]
     
     screens[0].grid(row = 0, column = 0, sticky = "news")  
     screens[1].grid(row = 0, column = 0, sticky = "news")
     screens[2].grid(row = 0, column = 0, sticky = "news")
+    screens[3].grid(row = 0, column = 0, sticky = "news")
     
     Screen.current = 0
     Screen.switch_frame()
