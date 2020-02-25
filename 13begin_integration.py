@@ -392,17 +392,17 @@ class CheckEdit(tk.Frame):
         
         '''DROP DOWN'''
         self.tkvar = tk.StringVar(self)
-        self.movie_choices = []
+        self.movie_choices = ["Select Movie"]
         
         for key in range(1, (len(movies)+1)):
             contents = movies[key]
             self.movie_choices.append(contents[1])
         
-        self.tkvar.set('Select Movie')
+        self.tkvar.set(self.movie_choices[0])
         
-        self.dbx_movieremove = tk.OptionMenu(self, self.tkvar, *self.movie_choices)
+        self.dbx_movieedit = tk.OptionMenu(self, self.tkvar, *self.movie_choices)
         
-        self.dbx_movieremove.grid(row = 2, 
+        self.dbx_movieedit.grid(row = 2, 
                                   column = 0, 
                                   columnspan = 2,
                                   sticky = "news")  
@@ -425,9 +425,12 @@ class CheckEdit(tk.Frame):
         
         
     def continue_to_edit(self):
-        Screen.current = 2
-        Screen.switch_frame()
-        self.parent.destroy()
+        if self.tkvar.get() == self.movie_choices[0]:
+            self.dbx_movieedit.configure(bg = "red")  
+        else:
+            Screen.current = 2
+            Screen.switch_frame()
+            self.parent.destroy()            
         
         
 class Remove(Screen):
