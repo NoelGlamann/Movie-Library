@@ -203,7 +203,7 @@ class AddEdit(Screen):
         
         Screen.__init__(self)        
         
-        self.selected_key = 0
+        self.edit_key = 0
         
         
         self.lbl_title = tk.Label(self, text = "Title: ",
@@ -342,12 +342,13 @@ class AddEdit(Screen):
                             sticky = "news")
         
         self.btn_back = tk.Button(self, text = "Back",
-                                  command = Screen.main, 
+                                  command = self.go_back, 
                                   font = ("Courier", 12))
         self.btn_back.grid(row = 11,
                            column = 0)
         
-        self.btn_reset = tk.Button(self, text = "Reset", 
+        self.btn_reset = tk.Button(self, text = "Reset",
+                                   command = self.reset,
                                    font = ("Courier", 12))
         self.btn_reset.grid(row = 11,
                             column = 2) 
@@ -356,6 +357,8 @@ class AddEdit(Screen):
                                     font = ("Courier", 12))
         self.btn_submit.grid(row = 11,
                              column = 3) 
+        
+        self.grid_columnconfigure(0, weight = 1)
         
         self.grid_rowconfigure(0, weight = 1)
         self.grid_rowconfigure(1, weight = 1)
@@ -370,17 +373,50 @@ class AddEdit(Screen):
         self.grid_rowconfigure(10, weight = 1)
         self.grid_rowconfigure(11, weight = 1)
         
+    def go_back(self):
+        '''back button
+        removes contents of entry boxes, and goes back to main menu'''
+        self.delete_contents()        
+        Screen.main()
+        
+    def reset(self):
+        '''reset button
+        removes contents of entry boxes, and puts back what it was before
+        this way if they edit a movie and realize they put the wrong thing - maybe don't remember what
+        it should be - they can push reset and get the correct info put back in'''
+        self.delete_contents()
+        self.update()
+        return
+        
+    def delete_contents(self):
+        '''removes contents of entry boxes
+        too much typing and I didn't want to keep retyping it'''
+        self.ent_genre.delete(0,"end")
+        self.ent_title.delete(0,"end")
+        self.ent_director.delete(0,"end")
+        self.ent_1b.delete(0,"end")
+        self.ent_2b.delete(0,"end")
+        self.ent_3b.delete(0,"end")
+        self.ent_releaseyr.delete(0,"end")
+        self.ent_viewrate.delete(0,"end")        
+        self.ent_starnum.delete(0,"end")
+        return
+        
     def update(self):
-        selection = movies[self.selected_key]
-        self.ent_genre.set(selection[0])
-        self.ent_title.set(selection[1])
-        self.ent_director.set(selection[2])
-        self.ent_1b.set(selection[3][0])
-        self.ent_2b.set(selection[3][1])
-        self.ent_3b.set(selection[3][2])
-        self.ent_releaseyr.set(selection[4])
-        self.ent_viewrate.set(selection[5])
-        self.ent_starnum.set(contents[6])
+        '''put in the info of a selected movie
+        used coming from checkedit()'''
+        entry = movies[self.edit_key]
+        self.delete_contents()
+        self.ent_genre.insert(1, entry[0])
+        self.ent_title.insert(1, entry[1])
+        self.ent_director.insert(1, entry[2])
+        self.ent_1b.insert(1, entry[3][0])
+        self.ent_2b.insert(1, entry[3][1])
+        self.ent_3b.insert(1, entry[3][2])
+        self.ent_releaseyr.insert(1, entry[4])
+        self.ent_viewrate.insert(1, entry[5])
+        self.ent_starnum.insert(1, entry[6])
+        #self.scr_notes.insert(1, entry[7])
         
         
        
@@ -445,14 +481,14 @@ class CheckEdit(tk.Frame):
             self.dbx_movieedit.configure(bg = "red")  
         else:
             Screen.current = 2
-            Screen.switch_frame()
+            Screen.switch_frame()            
             
             for i in range(len(self.movie_choices)):
                 if self.tkvar.get() == self.movie_choices[i]:
-                    screens[2].selected_key = i
-                    screens[2].update()
+                    screens[2].edit_key = i
                     break
                 
+            screens[2].update()    
             self.parent.destroy()            
         
         
