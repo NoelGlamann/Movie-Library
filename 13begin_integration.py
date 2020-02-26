@@ -205,6 +205,7 @@ class AddEdit(Screen):
         
         self.selected_key = 0
         
+        
         self.lbl_title = tk.Label(self, text = "Title: ",
                                   font = ("Courier", 12))
         
@@ -370,7 +371,17 @@ class AddEdit(Screen):
         self.grid_rowconfigure(11, weight = 1)
         
     def update(self):
-        entry = movies[self.selected_key]
+        selection = movies[self.selected_key]
+        self.ent_genre.set(selection[0])
+        self.ent_title.set(selection[1])
+        self.ent_director.set(selection[2])
+        self.ent_1b.set(selection[3][0])
+        self.ent_2b.set(selection[3][1])
+        self.ent_3b.set(selection[3][2])
+        self.ent_releaseyr.set(selection[4])
+        self.ent_viewrate.set(selection[5])
+        self.ent_starnum.set(contents[6])
+        
         
        
 class CheckEdit(tk.Frame):
@@ -436,8 +447,12 @@ class CheckEdit(tk.Frame):
             Screen.current = 2
             Screen.switch_frame()
             
-            
-            
+            for i in range(len(self.movie_choices)):
+                if self.tkvar.get() == self.movie_choices[i]:
+                    screens[2].selected_key = i
+                    screens[2].update()
+                    break
+                
             self.parent.destroy()            
         
         

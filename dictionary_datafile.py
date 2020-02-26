@@ -10,15 +10,15 @@ import pickle as p
 '''just so i do not forget:
           the list following the # key in the dictionary is-
           
-          1. Genre
-          2. Title
-          3. Director(s)
-          4. Top 3 Actors/Actress'
-          5. Year Released
-          6. Rating
-          7. IMDb Star Rate
-          8. Notes/Description
-          
+          0. Genre
+          1. Title
+          2. Director(s)
+          3. Top 3 Actors/Actress'
+          4. Year Released
+          5. Rating
+          6. IMDb Star Rate
+          7. Notes/Description
+        
 '''
 
 movies = {1:['Horror', 
