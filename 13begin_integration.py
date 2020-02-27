@@ -1,12 +1,12 @@
 #!usr/bin/python3
 #Noel Glamann
-#20 February 2020
+#25 February 2020
 
 '''
 This program will develop the Graphical User 
 Interface (GUI) for the Movie Library function. 
           
-This file last updated: 20 Feb 2020
+This file last updated: 26 Feb 2020
           
 '''
 
@@ -354,11 +354,13 @@ class AddEdit(Screen):
                             column = 2) 
         
         self.btn_submit = tk.Button(self, text = "Submit", 
+                                    command = self.submit,
                                     font = ("Courier", 12))
         self.btn_submit.grid(row = 11,
                              column = 3) 
         
-        self.grid_columnconfigure(0, weight = 1)
+        self.grid_columnconfigure(0, weight = 3)
+        
         
         self.grid_rowconfigure(0, weight = 1)
         self.grid_rowconfigure(1, weight = 1)
@@ -387,6 +389,34 @@ class AddEdit(Screen):
         self.delete_contents()
         self.update()
         return
+    
+    def submit(self):
+        '''submit button
+        creates a list to contain the new contents of the entry boxes after it's been edited.
+        must append in order of my original datafile
+        
+        ALSO:: In my dictionary definition, one of my items is a list in itself, 
+        so I had to make that and then append that list to my dictionary definition list.
+        
+        then takes list and dictionary key (self.edit_key) and changes the dictionary.'''
+        actors = []
+        actors.append(self.ent_1b.get())
+        actors.append(self.ent_2b.get())
+        actors.append(self.ent_3b.get())
+        
+        entry = []
+        entry.append(self.ent_genre.get())
+        entry.append(self.ent_title.get())
+        entry.append(self.ent_director.get())
+        entry.append(actors)
+        entry.append(self.ent_releaseyr.get())
+        entry.append(self.ent_viewrate.get())
+        entry.append(self.ent_starnum.get())
+        
+        movies[self.edit_key] = entry
+        Screen.main()
+        
+        
         
     def delete_contents(self):
         '''removes contents of entry boxes

@@ -6,7 +6,7 @@
 This program will develop the Graphical User 
 Interface (GUI) for the Movie Library function. 
           
-This file last updated: 20 Feb 2020
+This file last updated: 24 Feb 2020
           
 '''
 
