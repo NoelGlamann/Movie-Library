@@ -331,15 +331,24 @@ class AddEdit(Screen):
         
         self.ent_3b.grid(row = 10, 
                          column = 0,
-                         sticky = "news")        
+                         sticky = "news")   
         
-        self.scr_notes = ScrolledText(self, height = 8,
+        '''scrolled text bar for notes'''
+        
+        self.scr_notes = ScrolledText(self, 
+                                      wrap = 'word', #wrap text at full words only 
+                                      height = 8,    
                                       width = 40)
         self.scr_notes.grid(row = 5,
                             rowspan = 6,
                             column = 1,
                             columnspan = 3,
                             sticky = "news")
+        
+        mytext = '''
+        '''
+        
+        self.scr_notes.insert('insert', mytext)
         
         self.btn_back = tk.Button(self, text = "Back",
                                   command = self.go_back, 
@@ -412,7 +421,7 @@ class AddEdit(Screen):
         entry.append(self.ent_releaseyr.get())
         entry.append(self.ent_viewrate.get())
         entry.append(self.ent_starnum.get())
-        
+        entry.append(self.scr_notes.get(0.0, "end"))
         movies[self.edit_key] = entry
         Screen.main()
         
@@ -430,6 +439,7 @@ class AddEdit(Screen):
         self.ent_releaseyr.delete(0,"end")
         self.ent_viewrate.delete(0,"end")        
         self.ent_starnum.delete(0,"end")
+        self.scr_notes.delete(0.0, "end")
         return
         
     def update(self):
@@ -437,16 +447,16 @@ class AddEdit(Screen):
         used coming from checkedit()'''
         entry = movies[self.edit_key]
         self.delete_contents()
-        self.ent_genre.insert(1, entry[0])
-        self.ent_title.insert(1, entry[1])
-        self.ent_director.insert(1, entry[2])
-        self.ent_1b.insert(1, entry[3][0])
-        self.ent_2b.insert(1, entry[3][1])
-        self.ent_3b.insert(1, entry[3][2])
-        self.ent_releaseyr.insert(1, entry[4])
-        self.ent_viewrate.insert(1, entry[5])
-        self.ent_starnum.insert(1, entry[6])
-        #self.scr_notes.insert(1, entry[7])
+        self.ent_genre.insert(0, entry[0])
+        self.ent_title.insert(0, entry[1])
+        self.ent_director.insert(0, entry[2])
+        self.ent_1b.insert(0, entry[3][0])
+        self.ent_2b.insert(0, entry[3][1])
+        self.ent_3b.insert(0, entry[3][2])
+        self.ent_releaseyr.insert(0, entry[4])
+        self.ent_viewrate.insert(0, entry[5])
+        self.ent_starnum.insert(0, entry[6])
+        self.scr_notes.insert(0.0, entry[7])
         
         
        
