@@ -6,7 +6,7 @@
 This program will develop the Graphical User 
 Interface (GUI) for the Movie Library function. 
           
-This file last updated: 26 Feb 2020
+This file last updated: 02 March 2020
           
 '''
 
@@ -423,6 +423,7 @@ class AddEdit(Screen):
         entry.append(self.ent_starnum.get())
         entry.append(self.scr_notes.get(0.0, "end"))
         movies[self.edit_key] = entry
+        self.delete_contents()
         Screen.main()
         
         
