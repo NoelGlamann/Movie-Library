@@ -1,6 +1,6 @@
 #!usr/bin/python3
 #Noel Glamann
-#25 February 2020
+#02 March 2020
 
 '''
 This program will develop the Graphical User 
@@ -556,6 +556,8 @@ class Remove(Screen):
         
         tk.Frame.__init__(self)  
         
+        self.remove_key = 0
+        self.remove_title = ""
         
         self.lbl_removal1 = tk.Label(self, text = "This title is",
                             font = ("Times", "35"))
@@ -568,7 +570,7 @@ class Remove(Screen):
                            column = 1, 
                            columnspan = 2)
         
-        self.lbl_selectedremove= tk.Label(self)
+        self.lbl_selectedremove= tk.Label(self, text = self.remove_title)
         self.lbl_selectedremove.grid(row = 2, 
                          column = 1,
                          columnspan = 2)  
@@ -596,8 +598,10 @@ class Remove(Screen):
         self.grid_rowconfigure(1, weight = 1)
         self.grid_rowconfigure(2, weight = 2)
         self.grid_rowconfigure(3, weight = 1)
-        
-
+    
+    def update(self):
+        '''wrong'''
+        self.remove_title = CheckRemove.remove_choices[self.remove_key]
         
 class CheckRemove(tk.Frame):
     
@@ -656,8 +660,19 @@ class CheckRemove(tk.Frame):
                                column = 1)    
         
     def continue_to_remove(self):
-        
-            self.parent.destroy()        
+        if self.tkvar.get() == self.remove_choices[0]:
+            self.dbx_movieremove.configure(bg = "red")  
+        else:
+            Screen.current = 3
+            Screen.switch_frame()            
+            
+            for i in range(len(self.remove_choices)):
+                if self.tkvar.get() == self.remove_choices[i]:
+                    screens[3].remove_key = i
+                    break
+                
+            screens[3].update()    
+            self.parent.destroy()      
         
 class Save(Screen):
     def __init__(self):
