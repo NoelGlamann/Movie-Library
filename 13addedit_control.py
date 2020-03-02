@@ -526,7 +526,7 @@ class CheckEdit(tk.Frame):
         self.btn_continue = tk.Button(self, text = "Continue",
                                       command = self.continue_to_edit,
                                       font = ("Times", 20))
-        
+        "hi",
         self.btn_continue.grid(row = 3,
                                column = 1)    
         
@@ -551,9 +551,12 @@ class Remove(Screen):
     
     def __init__(self):
         
-        tk.Frame.__init__(self)        
+        tk.Frame.__init__(self)  
         
-        self.lbl_removal1 = tk.Label(self, text = "These titles are ",
+        self.title_num = 0
+        self.remove_title = ""
+        
+        self.lbl_removal1 = tk.Label(self, text = "This title is",
                             font = ("Times", "35"))
         self.lbl_removal1.grid(row = 0,
                       column = 1, 
@@ -564,9 +567,10 @@ class Remove(Screen):
                            column = 1, 
                            columnspan = 2)
         
-        self.scr_removelist = ScrolledText(self, height = 8,
-                                   width = 40)
-        self.scr_removelist.grid(row = 2, 
+        self.lbl_selectedremove= tk.Label(self, text = self.remove_title,
+                                          font = ("Times", "30"),
+                                          bg = "grey")
+        self.lbl_selectedremove.grid(row = 2, 
                          column = 1,
                          columnspan = 2)  
         
@@ -585,15 +589,25 @@ class Remove(Screen):
                            sticky = "w")
         
         self.grid_columnconfigure(0, weight = 1)
+        self.grid_columnconfigure(1, weight = 1)
+        self.grid_columnconfigure(2, weight = 1)
         self.grid_columnconfigure(3, weight = 1)
         
+        self.grid_rowconfigure(0, weight = 1)
+        self.grid_rowconfigure(1, weight = 1)
+        self.grid_rowconfigure(2, weight = 2)
+        self.grid_rowconfigure(3, weight = 1)
         
+    def update(self):
+        self.remove_title = CheckRemove.remove_choices[self.title_num]
         
 class CheckRemove(tk.Frame):
     
     def __init__(self, parent):
         
-        tk.Frame.__init__(self, master = parent)        
+        tk.Frame.__init__(self, master = parent)  
+        
+        self.parent = parent
         
         self.lbl_remove1 = tk.Label(self, text = "Which movie would you",
                                     font = ("Times", 30))
@@ -610,15 +624,19 @@ class CheckRemove(tk.Frame):
                               columnspan = 2,
                               sticky ="news")
         
-        '''DROP DOWN'''
+        '''DROP DOWN'''  
         
         self.tkvar = tk.StringVar(self)
         
-        choices = ['movie1', 'movie2', 'movie3']
+        self.remove_choices = ["Select Movie"]
         
-        self.tkvar.set('movie1')
+        for key in range(1, (len(movies)+1)):
+            contents = movies[key]
+            self.remove_choices.append(contents[1])
         
-        self.dbx_movieremove = tk.OptionMenu(self, self.tkvar, *choices)
+        self.tkvar.set(self.remove_choices[0])
+        
+        self.dbx_movieremove = tk.OptionMenu(self, self.tkvar, *self.remove_choices)
         
         self.dbx_movieremove.grid(row = 2, 
                                   column = 0, 
@@ -633,16 +651,25 @@ class CheckRemove(tk.Frame):
                              column = 0)
         
         self.btn_continue = tk.Button(self, text = "Continue",
-                                      command = self.removed,
+                                      command = self.continue_to_remove,
                                       font = ("Times", 20))
         
         self.btn_continue.grid(row = 3,
                                column = 1)    
         
     def continue_to_remove(self):
-        Screen.current = 3
-        Screen.switch_frame()
-        self.parent.destroy()        
+        if self.tkvar.get() == self.remove_choices[0]:
+            self.dbx_movieremove.configure(bg = "red")
+        else:
+            Screen.current = 3
+            Screen.switch_frame()
+            
+            for i in range(1, len(self.remove_choices)):
+                if self.tkvar.get() == self.remove_choices[i]:
+                    screens[3].title_num = i
+                    break
+            Remove.update(self)   
+            self.parent.destroy()        
         
 class Save(Screen):
     def __init__(self):
