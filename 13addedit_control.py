@@ -93,6 +93,17 @@ class MainMenu(Screen):
         Screen.switch_frame()
     def addedit(self):
         Screen.current = 2
+        screens[Screen.current].ent_genre.delete(0,"end")
+        screens[Screen.current].ent_title.delete(0,"end")
+        screens[Screen.current].ent_director.delete(0,"end")
+        screens[Screen.current].ent_1b.delete(0,"end")
+        screens[Screen.current].ent_2b.delete(0,"end")
+        screens[Screen.current].ent_3b.delete(0,"end")
+        screens[Screen.current].ent_releaseyr.delete(0,"end")
+        screens[Screen.current].ent_viewrate.delete(0,"end")        
+        screens[Screen.current].ent_starnum.delete(0,"end")
+        screens[Screen.current].scr_notes.delete(0.0, "end")
+        screens[Screen.current].edit_key = 0
         Screen.switch_frame()
         
     '''Pop Ups'''   
@@ -386,8 +397,7 @@ class AddEdit(Screen):
         
     def go_back(self):
         '''back button
-        removes contents of entry boxes, and goes back to main menu'''
-        self.delete_contents()        
+        removes contents of entry boxes, and goes back to main menu'''      
         Screen.main()
         
     def reset(self):
@@ -396,7 +406,8 @@ class AddEdit(Screen):
         this way if they edit a movie and realize they put the wrong thing - maybe don't remember what
         it should be - they can push reset and get the correct info put back in'''
         self.delete_contents()
-        self.update()
+        if self.edit_key > 0:
+            self.update()
         return
     
     def submit(self):
@@ -419,14 +430,15 @@ class AddEdit(Screen):
         entry.append(self.ent_director.get())
         entry.append(actors)
         entry.append(self.ent_releaseyr.get())
+        self.delete_contents()  
         entry.append(self.ent_viewrate.get())
         entry.append(self.ent_starnum.get())
         entry.append(self.scr_notes.get(0.0, "end"))
-        movies[self.edit_key] = entry
-        self.delete_contents()
-        Screen.main()
-        
-        
+        if self.edit_key > 0:
+            movies[self.edit_key] = entry
+        else:
+            movies[len(movies) + 1] = entry
+        Screen.main()       
         
     def delete_contents(self):
         '''removes contents of entry boxes
@@ -444,6 +456,7 @@ class AddEdit(Screen):
         return
         
     def update(self):
+        self.delete_contents()  
         '''put in the info of a selected movie
         used coming from checkedit()'''
         entry = movies[self.edit_key]
@@ -459,6 +472,7 @@ class AddEdit(Screen):
         self.ent_starnum.insert(0, entry[6])
         self.scr_notes.insert(0.0, entry[7])
         
+     
         
        
 class CheckEdit(tk.Frame):
