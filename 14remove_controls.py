@@ -766,14 +766,14 @@ class ChkBoxes(tk.Frame):
         
         
         self.chk_1 = tk.Checkbutton(self, text = "Title",
-                                    command = self.make_true_title,
+                                    variable = self.title,
                                     font = ("Times", 15))
         self.chk_1.grid(row = 1, 
                         column = 0,
                         sticky = "w")
         
         self.chk_2 = tk.Checkbutton(self, text = "Genre",
-                                    command = self.make_true_genre,
+                                    variable = self.genre,
                                     font = ("Times", 15))        
         
         self.chk_2.grid(row = 2, 
@@ -781,30 +781,35 @@ class ChkBoxes(tk.Frame):
                         sticky = "w")
         
         self.chk_3 = tk.Checkbutton(self, text = "Director",
+                                    variable = self.director,
                                     font = ("Times", 15))
         self.chk_3.grid(row = 3, 
                         column = 0,
                         sticky = "w")
         
         self.chk_4 = tk.Checkbutton(self, text = "Viewer Rating",
+                                    variable = self.vrate,
                                     font = ("Times", 15))
         self.chk_4.grid(row = 1, 
                         column = 1,
                         sticky = "w")
         
         self.chk_5 = tk.Checkbutton(self, text = "Star Rating",
+                                    variable = self.srate,
                                     font = ("Times", 15))
         self.chk_5.grid(row = 2, 
                         column = 1,
                         sticky = "w")
         
         self.chk_6 = tk.Checkbutton(self, text = "Release Year",
+                                    varaible = self.relyear,
                                     font = ("Times", 15))
         self.chk_6.grid(row = 3, 
                         column = 1,
                         sticky = "w")  
         
         self.chk_7 = tk.Checkbutton(self, text = "Top-Billed",
+                                    variable = self.tb,
                                     font = ("Times", 15))
         self.chk_7.grid(row = 4, 
                         column = 0,
@@ -812,12 +817,7 @@ class ChkBoxes(tk.Frame):
         
         self.grid_columnconfigure(0, weight = 1)
         self.grid_columnconfigure(1, weight = 1)
-        
-    def make_true_title(self):
-        self.title.set(True)
-    def make_true_genre(self):
-        self.genre.set(True)    
-
+    
 #MAIN-----------------------------------------------------------------------
 if __name__ == "__main__":
     
