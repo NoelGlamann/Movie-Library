@@ -15,6 +15,7 @@ import pickle as p
 import tkinter as tk
 from tkinter.scrolledtext import ScrolledText
 from tkinter import messagebox
+from tkinter import BooleanVar
 
 #CONSTANTS-----------------------------------------------------------------
 
@@ -186,6 +187,18 @@ class Search(Screen):
                                 columnspan = 3,
                                 sticky = "news")
         
+        key_list = movies.keys()
+        mytext=""
+        for key in key_list:
+            info = movies[key]
+            actors = info[3] 
+            
+            mytext+=info[1]
+        
+      
+        
+        self.scr_movielist.insert('insert', mytext)        
+        
         self.btn_back = tk.Button(self, text = "Back",
                                   command = Screen.main,
                                   font = ("Times", 20))
@@ -206,7 +219,45 @@ class Search(Screen):
                              column = 2)
         
         #self.grid_columnconfigure(0, weight = 1)
-               
+           
+    
+    def update_text(self):
+        
+        for key in key_list:
+            info = movies[key]
+            actors = info[3]        
+        
+            string = '''
+            ---------------------------------
+            '''
+            if ChkBoxes.title:
+                string += info[1]
+                
+            if ChkBoxes.genre:
+                string += info[0]
+                
+            if ChkBoxes.director:
+                string += info[2]
+                    
+            if ChkBoxes.tb:
+                string += actors[0]
+                string += actors[1]
+                string += actors[2]
+                        
+            
+            if ChkBoxes.relyear:
+                string += info[4]
+                            
+            if ChkBoxes.vrate:
+                string += info[5]
+                
+            if ChkBoxes.srate:
+                string += info[6] 
+                
+            self.mytext = string
+                
+            
+            
         
         
 class AddEdit(Screen):
@@ -696,16 +747,35 @@ class ChkBoxes(tk.Frame):
         self.lbl_printfilt = tk.Label(self, text = "Print Filters: ",
                                font = ("Times", 20))
         self.lbl_printfilt.grid(row = 0, 
-                                column = 0)        
+                                column = 0)    
+        
+        self.title = BooleanVar(self)
+        self.title.set(False)
+        self.genre = BooleanVar(self)
+        self.genre.set(False)
+        self.director = BooleanVar(self)
+        self.director.set(False)
+        self.vrate = BooleanVar(self)
+        self.vrate.set(False)
+        self.srate = BooleanVar(self)
+        self.srate.set(False)
+        self.relyear = BooleanVar(self)
+        self.relyear.set(False)
+        self.tb = BooleanVar(self)
+        self.tb.set(False)
+        
         
         self.chk_1 = tk.Checkbutton(self, text = "Title",
-                                   font = ("Times", 15))
+                                    command = self.make_true_title,
+                                    font = ("Times", 15))
         self.chk_1.grid(row = 1, 
                         column = 0,
                         sticky = "w")
         
         self.chk_2 = tk.Checkbutton(self, text = "Genre",
-                                    font = ("Times", 15))
+                                    command = self.make_true_genre,
+                                    font = ("Times", 15))        
+        
         self.chk_2.grid(row = 2, 
                         column = 0,
                         sticky = "w")
@@ -742,6 +812,11 @@ class ChkBoxes(tk.Frame):
         
         self.grid_columnconfigure(0, weight = 1)
         self.grid_columnconfigure(1, weight = 1)
+        
+    def make_true_title(self):
+        self.title.set(True)
+    def make_true_genre(self):
+        self.genre.set(True)    
 
 #MAIN-----------------------------------------------------------------------
 if __name__ == "__main__":
