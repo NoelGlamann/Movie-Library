@@ -240,58 +240,36 @@ class Search(Screen):
         
     def print_search(self):
         
-        self.scr_movielist.delete(0.0, "end")
-        
-        if self.tkvar.get() == "Select Option":
-            self.dbx_searchby.configure(bg = "red")
-        else:
-            if self.tkvar.get() == "Title":
-                keyword = ent_sf
-                
-            if self.tkvar.get() == "Title":
-                keyword = ent_sf
-            if self.tkvar.get() == "Genre":
-                keyword = ent_sf
-            if self.tkvar.get() == "Director":
-                keyword = ent_sf
-            if self.tkvar.get() == "Top-Billed Actors":
-                keyword = ent_sf
-            if self.tkvar.get() == "Release Year":
-                keyword = ent_sf
-            if self.tkvar.get() == "Viewer Rating":
-                keyword = ent_sf
-            if self.tkvar.get() == "Star Rating":
-                keyword = ent_sf
-            if self.tkvar.get() == "All":         
-                for key in movies.keys():
-                    entry = movies[key]
-                    actors = entry[3]
-                    
-                    if self.frm_checks.title.get() == True:
-                        msg = "Title: " + entry[1] + "\n"
-                        self.scr_movielist.insert("insert", msg)
-                    if self.frm_checks.genre.get() == True:
-                        msg = "Genre: " + entry[0] + "\n"
-                        self.scr_movielist.insert("insert", msg)
-                    if self.frm_checks.director.get() == True:
-                        msg = "Director(s): " + entry[2] + "\n"
-                        self.scr_movielist.insert("insert", msg)
-                    if self.frm_checks.tb.get() == True:
-                        msg = "Top Billed: " + "\n" + "       " + actors[0] + "\n" + "       " + actors[1] + "\n" + "       " + actors[2] + "\n"
-                        self.scr_movielist.insert("insert", msg)
-                    if self.frm_checks.relyear.get() == True:
-                        msg = "Release Year: " + entry[4] + "\n"
-                        self.scr_movielist.insert("insert", msg)
-                    if self.frm_checks.vrate.get() == True:
-                        msg = "Viewer Rating: " + entry[5] + "\n"
-                        self.scr_movielist.insert("insert", msg)
-                    if self.frm_checks.srate.get() == True:
-                        msg = "IMDb Star Rate: " + entry[6] +"/10" + "\n"
-                        self.scr_movielist.insert("insert", msg)
-                    
-                    next_movie = "-----------------------------------------" + "\n"    
-                    self.scr_movielist.insert("insert", next_movie)
-          
+        for key in movies.keys():
+            entry = movies[key]
+            actors = entry[3]
+            
+            if self.frm_checks.title.get() == True:
+                msg = "Title: " + entry[1] + "\n"
+                self.scr_movielist.insert("insert", msg)
+            if self.frm_checks.genre.get() == True:
+                msg = "Genre: " + entry[0] + "\n"
+                self.scr_movielist.insert("insert", msg)
+            if self.frm_checks.director.get() == True:
+                msg = "Director(s): " + entry[2] + "\n"
+                self.scr_movielist.insert("insert", msg)
+            if self.frm_checks.tb.get() == True:
+                msg = "Top Billed: " + "\n" + "       " + actors[0] + "\n" + "       " + actors[1] + "\n" + "       " + actors[2] + "\n"
+                self.scr_movielist.insert("insert", msg)
+            if self.frm_checks.relyear.get() == True:
+                msg = "Release Year: " + entry[4] + "\n"
+                self.scr_movielist.insert("insert", msg)
+            if self.frm_checks.vrate.get() == True:
+                msg = "Viewer Rating: " + entry[5] + "\n"
+                self.scr_movielist.insert("insert", msg)
+            if self.frm_checks.srate.get() == True:
+                msg = "IMDb Star Rate: " + entry[6] +"/10" + "\n"
+                self.scr_movielist.insert("insert", msg)
+            
+            next_movie = "-----------------------------------------" + "\n"    
+            self.scr_movielist.insert("insert", next_movie)                        
+                        
+           
         
         
 class AddEdit(Screen):
