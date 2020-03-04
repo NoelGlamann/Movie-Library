@@ -6,7 +6,7 @@
 This program will develop the Graphical User 
 Interface (GUI) for the Movie Library function. 
           
-This file last updated: 02 March 2020
+This file last updated: 04 March 2020
           
 '''
 
@@ -162,7 +162,7 @@ class Search(Screen):
                               rowspan = 5,
                               column = 2,
                               #columnspan = 2,
-                              sticky = "news")
+                              sticky ="news")
         
         self.lbl_sf = tk.Label(self, text = "Search For: ",
                                font = ("Times", 20))
@@ -223,6 +223,8 @@ class Search(Screen):
     
     def update_text(self):
         
+        key_list = movies.keys()
+        
         for key in key_list:
             info = movies[key]
             actors = info[3]        
@@ -230,28 +232,28 @@ class Search(Screen):
             string = '''
             ---------------------------------
             '''
-            if ChkBoxes.title:
+            if ChkBoxes.title.get() == True:
                 string += info[1]
                 
-            if ChkBoxes.genre:
+            if ChkBoxes.genre.get() == True:
                 string += info[0]
                 
-            if ChkBoxes.director:
+            if ChkBoxes.director.get() == True:
                 string += info[2]
                     
-            if ChkBoxes.tb:
+            if ChkBoxes.tb.get() == True:
                 string += actors[0]
                 string += actors[1]
                 string += actors[2]
                         
             
-            if ChkBoxes.relyear:
+            if ChkBoxes.relyear.get() == True:
                 string += info[4]
                             
-            if ChkBoxes.vrate:
+            if ChkBoxes.vrate.get() == True:
                 string += info[5]
                 
-            if ChkBoxes.srate:
+            if ChkBoxes.srate.get() == True:
                 string += info[6] 
                 
             self.mytext = string
@@ -802,7 +804,7 @@ class ChkBoxes(tk.Frame):
                         sticky = "w")
         
         self.chk_6 = tk.Checkbutton(self, text = "Release Year",
-                                    varaible = self.relyear,
+                                    variable = self.relyear,
                                     font = ("Times", 15))
         self.chk_6.grid(row = 3, 
                         column = 1,
@@ -817,6 +819,8 @@ class ChkBoxes(tk.Frame):
         
         self.grid_columnconfigure(0, weight = 1)
         self.grid_columnconfigure(1, weight = 1)
+        
+        Search.update_text(self)
     
 #MAIN-----------------------------------------------------------------------
 if __name__ == "__main__":
