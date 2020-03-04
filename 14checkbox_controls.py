@@ -247,7 +247,7 @@ class Search(Screen):
             entry = movies[key]
             actors = entry[3]
             
-            if self.dbx_searchby.get() == "Title":
+            if self.tkvar.get() == "Title":
                 keyword = self.ent_sf.get()
                 
                 if keyword in entry[1]:
