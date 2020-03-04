@@ -124,7 +124,10 @@ class Search(Screen):
     '''This Frame will be the Print All/Search By page'''
     
     def __init__(self):
-        Screen.__init__(self)        
+        Screen.__init__(self)   
+        
+        
+        
         self.lbl_title = tk.Label(self, text = "Search Library",
                              font = ("Times", 50))
         self.lbl_title.grid(row = 0, 
@@ -145,9 +148,9 @@ class Search(Screen):
         
         self.choices = ['Title', 'Genre', 'Director', 
                         'Top-Billed Actors', 'Release Year', 
-                        'Viewer Rating', 'Star Rating']
+                        'Viewer Rating', 'Star Rating', 'All']
         
-        self.tkvar.set('Title')
+        self.tkvar.set('Select Option')
         
         self.dbx_searchby = tk.OptionMenu(self, self.tkvar, *self.choices)
         
@@ -156,9 +159,9 @@ class Search(Screen):
                             #columnspan = 2,
                             sticky = "news")
         
-        self.check_boxes = ChkBoxes(self)
+        self.frm_checks = ChkBoxes(self)
         
-        self.check_boxes.grid(row = 1,
+        self.frm_checks.grid(row = 1,
                               rowspan = 5,
                               column = 2,
                               #columnspan = 2,
@@ -187,13 +190,14 @@ class Search(Screen):
                                 columnspan = 3,
                                 sticky = "news")
         
-        key_list = movies.keys()
-        mytext=""
-        for key in key_list:
+        
+        mytext = ""
+        
+        '''for key in movies.keys():
             info = movies[key]
             actors = info[3] 
             
-            mytext+=info[1]
+            mytext+=info[1]'''
         
       
         
@@ -207,59 +211,87 @@ class Search(Screen):
                            column = 0)
         
         self.btn_reset = tk.Button(self, text = "Reset",
+                                   command = self.reset_button,
                                    font = ("Times", 20))
         
         self.btn_reset.grid(row = 7,
                             column = 1)
         
         self.btn_submit = tk.Button(self, text = "Submit", 
+                                    command = self.print_search,
                                     font = ("Times", 20))
         
         self.btn_submit.grid(row = 7, 
                              column = 2)
         
-        #self.grid_columnconfigure(0, weight = 1)
-           
-    
-    def update_text(self):
+        self.print_search()
         
-        key_list = movies.keys()
+    def reset_button(self):
+        self.frm_checks.title.set(True)
+        self.frm_checks.genre.set(True)
+        self.frm_checks.director.set(True)
+        self.frm_checks.tb.set(True)
+        self.frm_checks.relyear.set(True)
+        self.frm_checks.vrate.set(True)
+        self.frm_checks.srate.set(True)
+        self.print_search()
         
-        for key in key_list:
-            info = movies[key]
-            actors = info[3]        
         
-            string = '''
-            ---------------------------------
-            '''
-            if ChkBoxes.title.get() == True:
-                string += info[1]
+        
+    def print_search(self):
+        
+        self.scr_movielist.delete(0.0, "end")
+        
+        if self.tkvar.get() == "Select Option":
+            self.dbx_searchby.configure(bg = "red")
+        else:
+            if self.tkvar.get() == "Title":
+                keyword = ent_sf
                 
-            if ChkBoxes.genre.get() == True:
-                string += info[0]
-                
-            if ChkBoxes.director.get() == True:
-                string += info[2]
+            if self.tkvar.get() == "Title":
+                keyword = ent_sf
+            if self.tkvar.get() == "Genre":
+                keyword = ent_sf
+            if self.tkvar.get() == "Director":
+                keyword = ent_sf
+            if self.tkvar.get() == "Top-Billed Actors":
+                keyword = ent_sf
+            if self.tkvar.get() == "Release Year":
+                keyword = ent_sf
+            if self.tkvar.get() == "Viewer Rating":
+                keyword = ent_sf
+            if self.tkvar.get() == "Star Rating":
+                keyword = ent_sf
+            if self.tkvar.get() == "All":         
+                for key in movies.keys():
+                    entry = movies[key]
+                    actors = entry[3]
                     
-            if ChkBoxes.tb.get() == True:
-                string += actors[0]
-                string += actors[1]
-                string += actors[2]
-                        
-            
-            if ChkBoxes.relyear.get() == True:
-                string += info[4]
-                            
-            if ChkBoxes.vrate.get() == True:
-                string += info[5]
-                
-            if ChkBoxes.srate.get() == True:
-                string += info[6] 
-                
-            self.mytext = string
-                
-            
-            
+                    if self.frm_checks.title.get() == True:
+                        msg = "Title: " + entry[1] + "\n"
+                        self.scr_movielist.insert("insert", msg)
+                    if self.frm_checks.genre.get() == True:
+                        msg = "Genre: " + entry[0] + "\n"
+                        self.scr_movielist.insert("insert", msg)
+                    if self.frm_checks.director.get() == True:
+                        msg = "Director(s): " + entry[2] + "\n"
+                        self.scr_movielist.insert("insert", msg)
+                    if self.frm_checks.tb.get() == True:
+                        msg = "Top Billed: " + "\n" + "       " + actors[0] + "\n" + "       " + actors[1] + "\n" + "       " + actors[2] + "\n"
+                        self.scr_movielist.insert("insert", msg)
+                    if self.frm_checks.relyear.get() == True:
+                        msg = "Release Year: " + entry[4] + "\n"
+                        self.scr_movielist.insert("insert", msg)
+                    if self.frm_checks.vrate.get() == True:
+                        msg = "Viewer Rating: " + entry[5] + "\n"
+                        self.scr_movielist.insert("insert", msg)
+                    if self.frm_checks.srate.get() == True:
+                        msg = "IMDb Star Rate: " + entry[6] +"/10" + "\n"
+                        self.scr_movielist.insert("insert", msg)
+                    
+                    next_movie = "-----------------------------------------" + "\n"    
+                    self.scr_movielist.insert("insert", next_movie)
+          
         
         
 class AddEdit(Screen):
@@ -752,23 +784,24 @@ class ChkBoxes(tk.Frame):
                                 column = 0)    
         
         self.title = BooleanVar(self)
-        self.title.set(False)
+        self.title.set(True)
         self.genre = BooleanVar(self)
-        self.genre.set(False)
+        self.genre.set(True)
         self.director = BooleanVar(self)
-        self.director.set(False)
+        self.director.set(True)
         self.vrate = BooleanVar(self)
-        self.vrate.set(False)
+        self.vrate.set(True)
         self.srate = BooleanVar(self)
-        self.srate.set(False)
+        self.srate.set(True)
         self.relyear = BooleanVar(self)
-        self.relyear.set(False)
+        self.relyear.set(True)
         self.tb = BooleanVar(self)
-        self.tb.set(False)
+        self.tb.set(True)
         
         
         self.chk_1 = tk.Checkbutton(self, text = "Title",
                                     variable = self.title,
+                                    selectcolor = "black",
                                     font = ("Times", 15))
         self.chk_1.grid(row = 1, 
                         column = 0,
@@ -776,6 +809,7 @@ class ChkBoxes(tk.Frame):
         
         self.chk_2 = tk.Checkbutton(self, text = "Genre",
                                     variable = self.genre,
+                                    selectcolor = "black",
                                     font = ("Times", 15))        
         
         self.chk_2.grid(row = 2, 
@@ -784,12 +818,14 @@ class ChkBoxes(tk.Frame):
         
         self.chk_3 = tk.Checkbutton(self, text = "Director",
                                     variable = self.director,
+                                    selectcolor = "black",
                                     font = ("Times", 15))
         self.chk_3.grid(row = 3, 
                         column = 0,
                         sticky = "w")
         
         self.chk_4 = tk.Checkbutton(self, text = "Viewer Rating",
+                                    selectcolor = "black",
                                     variable = self.vrate,
                                     font = ("Times", 15))
         self.chk_4.grid(row = 1, 
@@ -797,6 +833,7 @@ class ChkBoxes(tk.Frame):
                         sticky = "w")
         
         self.chk_5 = tk.Checkbutton(self, text = "Star Rating",
+                                    selectcolor = "black",
                                     variable = self.srate,
                                     font = ("Times", 15))
         self.chk_5.grid(row = 2, 
@@ -804,6 +841,7 @@ class ChkBoxes(tk.Frame):
                         sticky = "w")
         
         self.chk_6 = tk.Checkbutton(self, text = "Release Year",
+                                    selectcolor = "black",
                                     variable = self.relyear,
                                     font = ("Times", 15))
         self.chk_6.grid(row = 3, 
@@ -811,6 +849,7 @@ class ChkBoxes(tk.Frame):
                         sticky = "w")  
         
         self.chk_7 = tk.Checkbutton(self, text = "Top-Billed",
+                                    selectcolor = "black",
                                     variable = self.tb,
                                     font = ("Times", 15))
         self.chk_7.grid(row = 4, 
@@ -820,7 +859,7 @@ class ChkBoxes(tk.Frame):
         self.grid_columnconfigure(0, weight = 1)
         self.grid_columnconfigure(1, weight = 1)
         
-        Search.update_text(self)
+  
     
 #MAIN-----------------------------------------------------------------------
 if __name__ == "__main__":
