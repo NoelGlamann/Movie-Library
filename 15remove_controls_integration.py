@@ -359,21 +359,18 @@ class AddEdit(Screen):
                                sticky = "e")        
         
         self.ent_title = tk.Entry(self)
-        
         self.ent_title.grid(row = 0, 
                             column = 1,
                             columnspan = 3,
                             sticky = "news")
         
         self.ent_genre = tk.Entry(self)
-        
         self.ent_genre.grid(row = 1, 
                             column = 1,
                             columnspan = 3,
                             sticky = "news")
         
-        self.ent_director = tk.Entry(self)
-        
+        self.ent_director = tk.Entry(self)  
         self.ent_director.grid(row = 2, 
                                column = 1,
                                columnspan = 3,
@@ -387,7 +384,6 @@ class AddEdit(Screen):
                                 sticky = "e")
         
         self.ent_releaseyr = tk.Entry(self)
-        
         self.ent_releaseyr.grid(row = 3, 
                                 column = 1,
                                 sticky = "news")
@@ -400,7 +396,6 @@ class AddEdit(Screen):
                                sticky = "e")        
         
         self.ent_viewrate = tk.Entry(self)
-        
         self.ent_viewrate.grid(row = 3,
                                column = 3,
                                sticky = "news")
@@ -413,7 +408,6 @@ class AddEdit(Screen):
                             sticky = "e")
         
         self.ent_starnum = tk.Entry(self)
-        
         self.ent_starnum.grid(row = 4,
                               column  = 1,
                               sticky = "news")
@@ -433,7 +427,6 @@ class AddEdit(Screen):
                          sticky = "w")
         
         self.ent_1b = tk.Entry(self)
-        
         self.ent_1b.grid(row = 6, 
                          column = 0,
                          sticky = "news")
@@ -446,7 +439,6 @@ class AddEdit(Screen):
                          sticky = "w")
         
         self.ent_2b = tk.Entry(self)
-        
         self.ent_2b.grid(row = 8, 
                          column = 0,
                          sticky = "news")
@@ -459,7 +451,6 @@ class AddEdit(Screen):
                          sticky = "w")
         
         self.ent_3b = tk.Entry(self)
-        
         self.ent_3b.grid(row = 10, 
                          column = 0,
                          sticky = "news")   
@@ -494,7 +485,7 @@ class AddEdit(Screen):
                             column = 2) 
         
         self.btn_submit = tk.Button(self, text = "Submit", 
-                                    command = self.submit,
+                                    command = self.double_check,
                                     font = ("Courier", 12))
         self.btn_submit.grid(row = 11,
                              column = 3) 
@@ -539,6 +530,8 @@ class AddEdit(Screen):
         so I had to make that and then append that list to my dictionary definition list.
         
         then takes list and dictionary key (self.edit_key) and changes the dictionary.'''
+        
+        
         actors = []
         actors.append(self.ent_1b.get())
         actors.append(self.ent_2b.get())
@@ -560,8 +553,26 @@ class AddEdit(Screen):
         else:
             movies[len(movies) + 1] = entry
             messagebox.showinfo(message = "Entry has been added.")
-        Screen.main()       
+        Screen.main() 
+    
+    def double_check(self):
+        for key in movies.keys():
+            entry = movies[key]
+            if self.ent_title.get() == entry[1]:
+            
+                popup = tk.Tk()
+                popup.title("That Title Already Exists!")
+                
+                frm_error = ErrorMessage(popup)
+                frm_error.grid(row = 0,
+                               column = 0,
+                               sticky = "news")
+                return
         
+        self.submit()
+        
+            
+            
     def delete_contents(self):
         '''removes contents of entry boxes
         too much typing and I didn't want to keep retyping it'''
@@ -676,33 +687,39 @@ class Remove(Screen):
         tk.Frame.__init__(self)  
         
         self.remove_key = 0
-        self.remove_title = ""
         
-        self.lbl_removal1 = tk.Label(self, text = "This title is",
-                            font = ("Times", "35"))
+        self.lbl_removal1 = tk.Label(self, text = "The following title is marked for removal.",
+                            font = ("Times", "20"))
         self.lbl_removal1.grid(row = 0,
                       column = 1, 
                       columnspan = 2)
-        self.lbl_removal2 = tk.Label(self, text = "marked for removal!",
-                                 font = ("Times", "35"))
-        self.lbl_removal2.grid(row = 1, 
+        self.lbl_removal2 = tk.Label(self, text = "Are you sure you want to finalize?",
+                                 font = ("Times", "20"))
+        self.lbl_removal2.grid(row = 2, 
                            column = 1, 
                            columnspan = 2)
         
-        self.lbl_selectedremove= tk.Label(self, text = self.remove_title)
-        self.lbl_selectedremove.grid(row = 2, 
-                         column = 1,
-                         columnspan = 2)  
+        
+        self.txt_remove = tk.Text(self, width = 3,
+                                  height = 1)
+
+        self.txt_remove.grid(row = 1, 
+                                column = 1,
+                                columnspan = 2,
+                                sticky = "news")
+
         
         self.btn_cancel = tk.Button(self, text = "Cancel",
                                     command = Screen.main,
-                                    font = ("Times", "25"))
+                                    font = ("Times", "15"))
         
         self.btn_cancel.grid(row = 3, 
-                             column = 1)
+                             column = 1,
+                             sticky = "e")
         
         self.btn_conf = tk.Button(self, text = "Confirm",
-                                  font = ("Times", "25"))
+                                  command = self.confirm_delete,
+                                  font = ("Times", "15"))
         
         self.btn_conf.grid(row = 3,
                            column = 2,
@@ -719,8 +736,18 @@ class Remove(Screen):
         self.grid_rowconfigure(3, weight = 1)
     
     def update(self):
-        '''wrong'''
-        self.remove_title = CheckRemove.remove_choices[self.remove_key]
+        entry = movies[self.remove_key]
+        self.txt_remove.delete(0.0, "end")
+        self.txt_remove.insert("insert", entry[1])
+        
+    def confirm_delete(self):
+        for key in range(1, len(movies)+1):
+            if key >= self.remove_key and key != len(movies):
+                movies[key] = movies[key+1]
+            if key == len(movies):
+                movies.pop(key)
+                
+        print(movies)
         
 class CheckRemove(tk.Frame):
     
@@ -780,18 +807,18 @@ class CheckRemove(tk.Frame):
         
     def continue_to_remove(self):
         if self.tkvar.get() == self.remove_choices[0]:
-            self.dbx_movieremove.configure(bg = "red")  
+            pass 
         else:
-            Screen.current = 3
-            Screen.switch_frame()            
-            
             for i in range(len(self.remove_choices)):
                 if self.tkvar.get() == self.remove_choices[i]:
-                    screens[3].remove_key = i
-                    break
-                
+                    screens[3].remove_key = int(i)            
+            
+            Screen.current = 3
+            Screen.switch_frame()
+            self.parent.destroy()  
+                    
             screens[3].update()    
-            self.parent.destroy()      
+                
         
 class Save(Screen):
     def __init__(self):
@@ -893,7 +920,20 @@ class ChkBoxes(tk.Frame):
         self.grid_columnconfigure(0, weight = 1)
         self.grid_columnconfigure(1, weight = 1)
         
-
+class ErrorMessage(tk.Frame):
+    def __init__(self, parent):
+        tk.Frame.__init__(self, master = parent)
+        self.parent = parent
+        
+        self.lbl_error_message = tk.Label(self, text = "Error. Please Try Again.")
+        self.lbl_error_message.grid(column = 0,
+                                    row = 0,
+                                    sticky = "news")
+        self.btn_okay = tk.Button(self, text = "Okay",
+                                  command = self.parent.destroy)
+        self.btn_okay.grid(row = 1, 
+                           column = 0,
+                           sticky = "news")
     
 #MAIN-----------------------------------------------------------------------
 if __name__ == "__main__":
