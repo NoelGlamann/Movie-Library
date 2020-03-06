@@ -79,6 +79,7 @@ class MainMenu(Screen):
                        sticky = "news")      
         
         self.btn_save = tk.Button(self, text = "Save Changes",
+                                  command = self.save_changes,
                                   font = ("Courier", "16"))
         self.btn_save.grid(row = 6, 
                       column = 1, 
@@ -119,6 +120,13 @@ class MainMenu(Screen):
         popup.title("Remove Select")
         frm_checkremove = CheckRemove(popup)
         frm_checkremove.grid(row = 0, column = 0)
+    def save_changes(self):
+        popup = tk.Tk()
+        popup.geometry('200x200')
+        popup.title("Confirm Save")
+        frm_save = Save(popup)
+        frm_save.grid(row = 0, column = 0,
+                             sticky = "news")        
         
 class Search(Screen):
     '''This Frame will be the Print All/Search By page'''
@@ -485,7 +493,7 @@ class AddEdit(Screen):
                             column = 2) 
         
         self.btn_submit = tk.Button(self, text = "Submit", 
-                                    command = self.double_check,
+                                    command = self.submit,
                                     font = ("Courier", 12))
         self.btn_submit.grid(row = 11,
                              column = 3) 
@@ -542,8 +550,7 @@ class AddEdit(Screen):
         entry.append(self.ent_title.get())
         entry.append(self.ent_director.get())
         entry.append(actors)
-        entry.append(self.ent_releaseyr.get())
-        self.delete_contents()  
+        entry.append(self.ent_releaseyr.get()) 
         entry.append(self.ent_viewrate.get())
         entry.append(self.ent_starnum.get())
         entry.append(self.scr_notes.get(0.0, "end"))
@@ -556,20 +563,23 @@ class AddEdit(Screen):
         Screen.main() 
     
     def double_check(self):
-        for key in movies.keys():
-            entry = movies[key]
-            if self.ent_title.get() == entry[1]:
-            
-                popup = tk.Tk()
-                popup.title("That Title Already Exists!")
+        if self.edit_key == 0:
+            for key in movies.keys():
+                entry = movies[key]
+                if self.ent_title.get() == entry[1]:
                 
-                frm_error = ErrorMessage(popup)
-                frm_error.grid(row = 0,
-                               column = 0,
-                               sticky = "news")
-                return
-        
-        self.submit()
+                    popup = tk.Tk()
+                    popup.title("That Title Already Exists!")
+                    
+                    frm_error = ErrorMessage(popup)
+                    frm_error.grid(row = 0,
+                                   column = 0,
+                                   sticky = "news")
+                    return
+            
+            self.submit()
+        else:
+            self.submit()
         
             
             
@@ -747,7 +757,7 @@ class Remove(Screen):
             if key == len(movies):
                 movies.pop(key)
                 
-        print(movies)
+        Screen.main()
         
 class CheckRemove(tk.Frame):
     
@@ -820,21 +830,43 @@ class CheckRemove(tk.Frame):
             screens[3].update()    
                 
         
-class Save(Screen):
-    def __init__(self):
+class Save(tk.Frame):
+    def __init__(self, parent): 
+        tk.Frame.__init__(self, master = parent)
+        self.parent = parent
+
         
-        Screen.__init__(self)
-        
-        self.lbl_filesaved = tk.Label(self, text = "File Save Success",
+        self.lbl_filesaved = tk.Label(self, text = "Save File?",
                                       font = ("Times", 25))
         
-        self.lbl_filesaved.grid(row = 0, column = 0)
+        self.lbl_filesaved.grid(row = 1, column = 1,
+                                sticky = "news")
         
-        self.btn_okay = tk.Button(self, text = "Okay",
+        self.btn_okay = tk.Button(self, text = "Complete",
+                                  command = self.complete_save,
                                   font = ("Times", 20))
         
-        self.btn_okay.grid(row = 1, column = 0)
-   
+        self.btn_okay.grid(row = 2, column = 1,
+                           sticky = "news")
+        
+        self.columnconfigure(0, weight = 1)
+        self.columnconfigure(2, weight = 1)
+        self.rowconfigure(0, weight = 1)
+        self.rowconfigure(3, weight = 1)
+    
+    def complete_save(self):
+        dictionary = movies
+        save = open("movie_lib.pickle", "wb")
+        p.dump(dictionary, save)
+        save.close()
+        
+        reopen = open("movie_lib.pickle", "rb")
+        dictionary = p.load(reopen)  
+        reopen.close()
+        print(movies)
+        
+        self.parent.destroy()   
+        
 class ChkBoxes(tk.Frame):
     def __init__(self, parent): 
         tk.Frame.__init__(self, master = parent)
