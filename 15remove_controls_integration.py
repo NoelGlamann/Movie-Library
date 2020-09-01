@@ -122,11 +122,9 @@ class MainMenu(Screen):
         frm_checkremove.grid(row = 0, column = 0)
     def save_changes(self):
         popup = tk.Tk()
-        popup.geometry('200x200')
-        popup.title("Confirm Save")
+        popup.title("Ready to Save?")
         frm_save = Save(popup)
-        frm_save.grid(row = 0, column = 0,
-                             sticky = "news")        
+        frm_save.grid(row = 0, column = 0)        
         
 class Search(Screen):
     '''This Frame will be the Print All/Search By page'''
@@ -200,14 +198,7 @@ class Search(Screen):
         
         
         mytext = ""
-        
-        '''for key in movies.keys():
-            info = movies[key]
-            actors = info[3] 
-            
-            mytext+=info[1]'''
-        
-      
+          
         
         self.scr_movielist.insert('insert', mytext)        
         
@@ -840,18 +831,30 @@ class Save(tk.Frame):
                                       font = ("Times", 25))
         
         self.lbl_filesaved.grid(row = 1, column = 1,
+                                columnspan = 2,
                                 sticky = "news")
         
-        self.btn_okay = tk.Button(self, text = "Complete",
+        self.btn_cont = tk.Button(self, text = "Simple Save",
                                   command = self.complete_save,
                                   font = ("Times", 20))
         
-        self.btn_okay.grid(row = 2, column = 1,
-                           sticky = "news")
+        self.btn_cont.grid(row = 2, column = 1,
+                                sticky = "news")
+        
+        self.btn_cont = tk.Button(self, text = "Save & Exit",
+                                  command = self.save_exit,
+                                  font = ("Times", 20))
+        
+        self.btn_cont.grid(row = 2, column = 2,
+                                sticky = "news")        
         
         self.columnconfigure(0, weight = 1)
+        self.columnconfigure(1, weight = 1)
         self.columnconfigure(2, weight = 1)
+        self.columnconfigure(3, weight = 1)
         self.rowconfigure(0, weight = 1)
+        self.rowconfigure(1, weight = 1)
+        self.rowconfigure(2, weight = 1)
         self.rowconfigure(3, weight = 1)
     
     def complete_save(self):
@@ -865,7 +868,18 @@ class Save(tk.Frame):
         reopen.close()
         print(movies)
         
-        self.parent.destroy()   
+        self.parent.destroy() 
+        
+    def save_exit(self):
+        dictionary = movies
+        save = open("movie_lib.pickle", "wb")
+        p.dump(dictionary, save)
+        save.close()
+        
+        
+        print("------Goodbye :)")
+        self.parent.destroy() 
+        root.destroy()
         
 class ChkBoxes(tk.Frame):
     def __init__(self, parent): 
